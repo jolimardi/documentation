@@ -1,5 +1,5 @@
 ---
-title: Variables
+title: Variables (default_test)
 ---
 
 # Variables
@@ -8,25 +8,27 @@ Toutes les variables disponible
 
 ## Variables de couleurs
 
-Voici les variables de couleurs disponibles dans notre projet :
+<!--  <iframe srcDoc='
+    <link rel="stylesheet" href="http://127.0.0.1:8000/build/assets/app-036c9fd4.css">
+    <div class="no-padding">
+        <div class="max-width">
+            <h1>Test</h1>
+            <div class="preview-html">
+                <span class="text-accent">Blanc</span>
+            </div>
+    </div>
+</div>' width='100%' height="200px">
+</iframe> -->
 
-<div style={{ 
-    display: 'grid', 
-    gridTemplateColumns: 'repeat(3, 1fr)', 
-    gap: '10px',
-    padding: '20px',
-    backgroundColor: '#282A36',
-    borderRadius: '5px 5px 0 0',
-    borderBottom: '1px solid #606770',
-    fontFamily: 'Monaco, monospace'
-}}>
-    <span style={{ color: 'var(--white)', textAlign: 'center' }}>Blanc</span>
-    <span style={{ color: 'var(--accent)', textAlign: 'center' }}>Accent</span>
-    <span style={{ color: 'var(--gray-text)', textAlign: 'center' }}>Texte gris</span>
-    <span style={{ color: 'var(--red)', textAlign: 'center' }}>Rouge</span>
-    <span style={{ color: 'var(--orange)', textAlign: 'center' }}>Orange</span>
-    <span style={{ color: 'var(--green)', textAlign: 'center' }}>Vert</span>
-</div>
+import Grid from '@site/src/components/cssFeatures/Grid';
+
+Voici une démonstration de nos variables CSS :
+
+<Grid>
+    <span className="text-gradient">Blanc</span>
+    <span className="text-accent">Accent</span>
+    <span className="text-gray">Texte gris</span>
+</Grid>
 
 ```html title="HTML"
 <div>
@@ -52,5 +54,6 @@ Liste de toutes les variables
 - `--red`
 - `--orange`
 - `--green`
+
 
 ## Variables de titre
