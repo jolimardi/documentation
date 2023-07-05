@@ -20,15 +20,17 @@ Toutes les variables disponible
 </div>' width='100%' height="200px">
 </iframe> -->
 
-import Grid from '@site/src/components/cssFeatures/Grid';
-
 Voici une démonstration de nos variables CSS :
 
-<Grid>
+<div className="html-preview">
+    <h1>Test</h1>
     <span className="text-gradient">Blanc</span>
     <span className="text-accent">Accent</span>
     <span className="text-gray">Texte gris</span>
-</Grid>
+    <div className="card">
+        <div className="card-body"><h4>Test</h4></div>
+    </div>
+</div>
 
 ```html title="HTML"
 <div>
@@ -54,6 +56,5 @@ Liste de toutes les variables
 - `--red`
 - `--orange`
 - `--green`
-
 
 ## Variables de titre
