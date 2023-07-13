@@ -1,4 +1,4 @@
-# Centrer
+# Center
 
 Les classes CSS suivantes sont utilisées pour centrer des éléments
 
@@ -18,4 +18,18 @@ Les classes CSS suivantes sont utilisées pour centrer des éléments
   <div>Élément 2</div>
   <div>Élément 3</div>
 </div>
+```
+
+## Centrer un texte 
+
+<div className="html-preview">
+  <div className="centered">
+    <p>Texte centré</p>
+  </div>
+</div>
+
+```html title="HTML"
+  <div class="centered">
+    <p>Texte centré</p>
+  </div>
 ```
