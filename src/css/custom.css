@@ -53,7 +53,8 @@
   margin: 5px;
 }
 
-/* Ajustement de jolimardi.css */
+
+/* Ajustement de jolimardi.css - à modifier directement */
 .justify-center {
   justify-content: center;
 }
@@ -68,4 +69,13 @@
 
 .justify-stretch {
   justify-content: stretch;
+}
+
+.text-xs {
+
+  &,
+  * {
+    font-size: var(--xs-fs);
+    line-height: var(--xs-lh);
+  }
 }
