@@ -27,15 +27,19 @@ La classe `.separator` est utilisée pour créer une ligne de séparation horizo
 Voici un exemple d'utilisation de la classe `.separator` :
 
 <div className="html-preview">
-    <div className="separator">
-        <p>Contenu à gauche</p>
-        <p>Contenu à droite</p>
+    <div className="text-center">
+        <p>Paragraphe avant le séparateur.</p>
+        <div className="separator">
+        ou
+        </div>
+        <p>Paragraphe après le séparateur.</p>
     </div>
 </div>
 
 ```html title="HTML"
-<div class="separator">
-    <p>Contenu à gauche</p>
-    <p>Contenu à droite</p>
-</div>
+    <p>Paragraphe avant le séparateur.</p>
+    <div className="separator">
+        ou
+    </div>
+    <p>Paragraphe après le séparateur.</p>
 ```
