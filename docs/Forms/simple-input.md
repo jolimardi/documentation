@@ -6,7 +6,17 @@ Note : Tout les type d'inputs possède les même propriété de base.
 
 ## Classe de base pour les formulaires
 
-La classe `form` définit le style de base pour un formulaire. Elle peut être utilisée directement sur un élément `form`.
+:::tip
+Toujours ajouter la class `label` sur la balise label
+:::
+
+:::info
+Toujours ajouter la class `label` sur la balise label
+:::
+
+:::caution
+Toujours ajouter la class `label` sur la balise label
+:::
 
 <div className="html-preview">
     <form className="form">
@@ -21,10 +31,10 @@ La classe `form` définit le style de base pour un formulaire. Elle peut être u
 
 ```html title="HTML"
 <form class="form">
-    <label className="label">Champ de texte</label>
+    <label class="label">Champ de texte</label>
     <input type="text"/>
     <span class="form-text">Texte d'aide pour ce champ de formulaire (Facultatif)</span>
-    <label className="label">Champ de password</label>
+    <label class="label">Champ de password</label>
     <input type="password"/>
     <input type="submit"/>
 </form>
