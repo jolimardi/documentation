@@ -85,4 +85,26 @@ module.exports = {
       ],
     },
   ],
+  laravelSidebar: [
+    {
+      type: 'doc',
+      id: 'laravel/intro',
+    },
+    {
+      type: 'category',
+      label: 'Installation',
+      items: [
+        'laravel/Installation/package-laravel',
+        'laravel/Installation/Configuration',
+        'laravel/Installation/Utilisation',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Cas pratique',
+      items: [
+        'laravel/Cas pratique/Setup',
+      ],
+    }
+  ],
 };

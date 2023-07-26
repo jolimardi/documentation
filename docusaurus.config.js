@@ -44,13 +44,13 @@ const config = {
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
-        blog: {
+        blog: false/* {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-        },
+        } */,
         theme: {
           customCss: [require.resolve('./src/css/custom.css'), require.resolve('./src/css/jm-compiler-cli/jm-compiled.css'), require.resolve('./src/css/jm-vars.css')],
         },
@@ -75,6 +75,12 @@ const config = {
             sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'Documentation CSS',
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'laravelSidebar',
+            position: 'left',
+            label: 'Documentation Laravel',
           },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
