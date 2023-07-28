@@ -307,7 +307,77 @@ Et
 php artisan vendor:publish --provider="Mostafaznv\NovaCkEditor\FieldServiceProvider"
 ```
 
+## Jolimardi plugins
+
+Les plugins ajouter par JoliMardi, rendez-vous sur la documentation du package pour plus d'informations.
+
+### CSS
+
+Pour ajouter le css de JoliMardi, récupérer le zip du dépot https://github.com/jolimardi/jolimardi-css, puis décompresser dans votre projet dans `resources/css`.
+Et enfin, importer dans `resources/css/app.css` :
+```css
+@import "jolimardi-css/jolimardi.css";
+```
+
+### Menu
+
+```bash
+composer require jolimardi/laravel-menu
+```
+Puis
+```bash
+php artisan vendor:publish --provider="JoliMardi\Menu\MenuServiceProvider"
+```
+
+Ajouter le component `<x-menu/>` dans un template blade, là où vous voulez afficher le menu.
+Modifier `config/menu.yml` pour ajouter des routes au composant.
+
+### Sections
+
+```bash
+composer require jolimardi/laravel-mysections:dev-main
+```
+> `:dev-main` permet d'outre-passer la vérification de stabilité pour le moment.
+
+- Il est déjà possible d'utiliser le composant `<x-section><x-section />` ici.
+
+Accéder à la création de sections, éxécuter :
+
+```bash
+php artisan vendor:publish --provider="JoliMardi\MySections\MySectionsServiceProvider"
+```
+```bash
+php artisan migrate
+```
+
+Importer le css des sections dans `resources/css/app.css` : 
+
+```css
+@import "../../public/vendor/mysections/sections.css";
+```
+
+Utiliser `@mySection($data, $key)` pour afficher la section après l'avoir créer dans nova. 
+
+### Flash
+
+```bash
+composer require jolimardi/laravel-flash:dev-master
+```
+> `:dev-main` permet d'outre-passer la vérification de stabilité pour le moment.
+
+Ajouter l'alias personnalisé dans `config/app.php` -> `aliases`:
+
+```php
+'MyFlash' => JoliMardi\Flash\Flash::class,
+```
+
+Utiliser dans un controlleur `Flash::success('Ceci est un message de succès');`.
+
+> Retrouvez tout les types de message dans la documentation du package : https://github.com/jolimardi/laravel-flash
+
+
 ## @TODO 
 - Supprimer Images et Videos related avec ckeditor, gérer par media-librairy
 - Ajouter les packages jolimardi sections/menu/flashmessage
-- 
+- Améliorer laravel-mysections erreur stabilité, ajouter une version
+- AJouter publishables pour jolimardi/laravel-flash pour le composant `<x-flash-messages />`
