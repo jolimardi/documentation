@@ -284,6 +284,10 @@ Ajout d'autres langues pour Nova avec :
 ```bash
 composer require coderello/laravel-nova-lang
 ```
+Et 
+```bash
+php artisan nova-lang:publish fr
+```
 
 ---
 
