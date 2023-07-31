@@ -1,9 +1,0 @@
-{
-  "devDependencies": {
-    "postcss": "^8.4.24",
-    "postcss-cli": "^10.1.0"
-  },
-  "dependencies": {
-    "postcss-scopify": "^0.1.10"
-  }
-}
