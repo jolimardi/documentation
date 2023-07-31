@@ -6,6 +6,7 @@
 
 /* You can override the default Infima variables here. */
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Outfit:wght@200;300;400;500;600;700;800;900&display=swap');
 
 :root {
   --ifm-color-primary: #2e8555;
@@ -37,6 +38,7 @@
   background-color: #fff;
   border: 4px solid #eee;
   border-radius: 5px 5px 0 0;
+  font-family: "Outfit", sans-serif;
 }
 
 .grid-preview {

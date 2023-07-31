@@ -1,3 +1,5 @@
 [submodule "src/css/jolimardi-css"]
 	path = src/css/jolimardi-css
 	url = https://github.com/jolimardi/jolimardi-css.git
+	update = rebase
+	branch = main
