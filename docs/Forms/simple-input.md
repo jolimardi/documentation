@@ -10,14 +10,6 @@ Note : Tout les type d'inputs possède les même propriété de base.
 Toujours ajouter la class `label` sur la balise label
 :::
 
-:::info
-Toujours ajouter la class `label` sur la balise label
-:::
-
-:::caution
-Toujours ajouter la class `label` sur la balise label
-:::
-
 <div className="html-preview">
     <form style={{ maxWidth: "400px", margin: "2em auto"}}>
         <input type="hidden" name="_token" value="OTQFt40zNd496JX2e0YGzKcCXt4Sq68qkmVSLJYc" />
@@ -109,7 +101,7 @@ Toujours ajouter la class `label` sur la balise label
     </form>
 </div>
 
-```html title="HTML"
+```html title="HTML BLADE"
 <x-form :action="route('contact.send')" style="max-width: 400px; margin: 3em auto 1em;">
 
     <x-form-input name="name" label="Nom" class="first" required />

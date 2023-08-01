@@ -28,12 +28,15 @@ En plus de la classe .btn, nous avons des classes suppl√©mentaires qui peuvent √
     <button className="btn btn-primary">Bouton Principal</button>
     <button className="btn btn-secondary">Bouton Secondaire</button>
     <button className="btn btn-gradient">Bouton Gradient</button>
+    <p></p>
+    <button className="btn btn-large btn-gradient">Bouton Large</button>
 </div>
 
 ```html title="HTML"
     <button class="btn btn-primary">Bouton Principal</button>
     <button class="btn btn-secondary">Bouton Secondaire</button>
     <button class="btn btn-gradient">Bouton Gradient</button>
+    <button className="btn btn-large btn-gradient">Bouton Large</button>
 ```
 
 ## Classe Btns
