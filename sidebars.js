@@ -94,16 +94,26 @@ module.exports = {
       type: 'category',
       label: 'Installation',
       items: [
+        'laravel/Installation/Setup',
         'laravel/Installation/package-laravel',
         'laravel/Installation/Configuration',
-        'laravel/Installation/Utilisation',
       ],
     },
     {
       type: 'category',
-      label: 'Cas pratique',
+      label: 'Packages',
       items: [
-        'laravel/Cas pratique/Setup',
+        'laravel/Packages/blade-icons',
+        'laravel/Packages/nova',
+        'laravel/Packages/nova-belongsToMany',
+        {
+          type: 'category',
+          label: 'Jolimardi',
+          items: [
+            'laravel/Packages/jm-menu',
+            'laravel/Packages/jm-sections',
+          ]
+        },
       ],
     }
   ],

@@ -1,5 +1,5 @@
 ---
-title: Setup d'application
+title: Step by step
 ---
 
 

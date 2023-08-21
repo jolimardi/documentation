@@ -1,7 +1,7 @@
 ---
 id: package-laravel
 title: Installation de Laravel et Ajout de Packages
-sidebar_label: Packages
+sidebar_label: Packages (commandes)
 ---
 
 # Création d'un Nouveau Projet Laravel
