@@ -9,166 +9,77 @@ Dans cette page, nous allons créer une application Laravel complète avec un bo
 
 ## Installer Laravel 
 
-### Application Laravel
+### Projet de base Laravel
 
-Commençon par l'application avec Laravel par défaut : 
-
+:::info
+Remplacer `mon-application` par le nom du projet. Le projet sera créé dans un sous-dossier.
+:::
 ```bash
-composer create-project laravel/laravel mon-appication
-```
-
-*Note :* Remplacer `mon-application` par le nom de votre projet.
-
-Lancer ces commandes pour bien initialiser le projet : 
-
-```bash
+composer create-project laravel/laravel mon-application
 composer update
 npm install
 ```
 
 ### Laravel Nova
 
-Ajouter indépendament à `composer.json` : 
-
-```json
-"repositories": [
-    {
-        "type": "composer",
-        "url": "https://nova.laravel.com"
-    }
-],
+#### Il faut d'abord ajouter le repo privé et ses credentials :
 ```
-Et 
-```json
-"require": {
-    "php": "^8.1",
-    "laravel/framework": "^10.0",
-    "laravel/nova": "^4.0"
-},
-```
-**Note :** Uniquement `"laravel/nova": "^4.0"` est à ajouter, `php` et `laravel/framework` devrait déjà être là avec une version potentiellement différente.
-
-Créer un nouveau fichier à la racine du projet nommée `auth.json` qui comprend vos credentials Nova, ce fichier ressemble à : 
-
-```json
-{
-    "http-basic": {
-        "nova.laravel.com": {
-            "username": "{MAIL_ADDRESS}",
-            "password": "{API-KEY}"
-        }
-    }
-}
+composer config repositories.nova '{"type": "composer", "url": "https://nova.laravel.com"}' --file composer.json
 ```
 
-Cela vous permettra de ne pas à avoir a les entré lors de l'installation du package. 
+Puis entrer ses credentials pour ne pas avoir à les entrer à chaque fois (adresse mail et clé d'api), cette commande va ajouter auth.json à la racine avec les credentials (ne pas versionner ce fichier).
+```
+composer config http-basic.nova.laravel.com example@mail.com REMPLACER_PAR_NOVA_KEY
+```
 
-Puis lancer la commande pour télécharger le package :
+#### Ensuite, installer Nova
 
 ```bash
 composer update --prefer-dist
-```
-
-Et enfin, installer Nova grâce aux commandes
-
-```bash
 php artisan nova:install
-```
-Et
-```bash
 php artisan migrate
 ```
-> Certaines configuration de database peuvent sortir une erreur `SQLSTATE[42000]: Syntax error or access violation: 1071 La clé est trop longue.` Dans ce cas, ajouter dans `app/Service/AppServiceProvider.php` la ligne suivante dans la fonction boot :
+:::info
+ Certaines configuration de database peuvent sortir une erreur `SQLSTATE[42000]: Syntax error or access violation: 1071 La clé est trop longue.` Dans ce cas, ajouter dans `app/Service/AppServiceProvider.php` la ligne suivante dans la fonction boot :
 ```php
 public function boot(): void {
     Schema::defaultStringLength(191);
 }
 ```
+:::
 
-**Remarque :** Assurez-vous d'avoir mis à jour le fichier .env avec les informations correctes de la base de données. J'utiliserais WAMP pour la base de données. [Site officiel de WAMP](https://www.wampserver.com/) et `php artisan serve` pour le serveur php.
+:::info
+Assurez-vous d'avoir les bonnes infos de connexion à la base de données dans le fichier .env avant le `migrate`
+:::
 
-Exemple du fichier .env : 
-```bash
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3307
-DB_DATABASE=mon-application
-DB_USERNAME=root
-DB_PASSWORD=
-```
+#### Ajouter le premier utilisateur
 
-Pour finaliser, penser à ajouter un utilisateur pour se connecter à Nova avec la commande et suivez les instructions : 
-> *Info* : Parfois la console n'affiche pas l'écriture du mot de passe mais il sera bien enregistré.
+Il faut maintenant ajouter un utilisateur pour pouvoir se connecter au dashboard nova (`http://mon-url.com/nova`) :
 
 ```bash
 php artisan nova:user
 ```
+Puis suivre les instructions (choix d'un nom, d'un email et d'un mot de passe pour créer l'utilisateur).
 
-**Pour plus de détails sur Laravel nova, retrouvez la documentation officiel ici : https://nova.laravel.com/docs/4.0/installation.html**
+**Pour plus de détails sur Laravel nova, retrouvez la documentation officielle ici : https://nova.laravel.com/docs/4.0/installation.html**
 
-### Frontend avec Vite
+### Vite.js
 
 ##### Vite.js 
 
-Vite.js est une nouvelle génération de build tool qui offre un environnement de développement rapide et des performances de construction optimisées. En outre, Vite.js prend en charge des plugins tels que jQuery, Fancybox, PostCSS, PostCSS-Nesting et Autoprefixer pour améliorer la fonctionnalité et la compatibilité de votre projet.
+Vite.js est le builder js utilisé par Laravel. Cela permet d'ajouter des plugins au projet via `npm`, de compiler les assets (js, scss, images...) et de live-reload les pages pendant le dev.
 
-##### Ajouter des plugins
+##### Compilation CSS avec Vite.js
 
-Tout d'abord, Vite est déjà pré-installer avec Laravel.
-
-On va donc directement ajouter les plugins à notre projet pour étendre les fonctionnalités de Vite.js, vérifier les documentation respective pour plus d'informations à propos des plugins. 
-
-1. jQuery
+Installation de quelques plugins pour PostCSS, PostCSS-Nesting et Autoprefixer
 
 ```bash
-npm install jquery --save-dev
+npm install postcss --save-dev
+npm install postcss-nesting --save-dev
+npm install autoprefixer --save-dev
 ```
 
-2. PostCSS
-
-```bash
-npm install postcss
-```
-
-3. PostCSS-Nesting
-
-```bash
-npm install postcss-nesting
-```
-
-4. Autoprefixer
-
-```bash
-npm install autoprefixer
-```
-
-5. Bonus: Fancybox 
-
-```bash
-npm install @fancyapps/ui --save-dev
-```
-
-Puis ajouter à `resources/css/app.css` la ligne suivant pour charger le css : 
-
-```css
-@import "../../node_modules/@fancyapps/ui/dist/fancybox/fancybox.css";
-```
-Ainsi qu'ajouter au fichier `resources/js/bootstrap.js`
-```js
-/* -------   jQuery   ------- */
-import $ from 'jquery';
-window.$ = $;
-/* -------   Fancybox   ------- */
-import { Fancybox } from "@fancyapps/ui";
-Fancybox.bind();
-```
-Afin de faire fonctionner les plugins.
-
-
-##### Configurer Vite avec ses plugins
-
-Pour cela, il faut modifier le fichier `vite.config.js` à la racine du projet, pour arriver à : 
-
+Puis configuration à la racine du projet, dans `vite.config.js` :
 
 ```js
 import { defineConfig } from 'vite';
@@ -181,7 +92,7 @@ import autoprefixer from 'autoprefixer';
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
+            input: ['resources/css/app.css', 'resources/js/app.js'], // Ajouter ici les ressources à compiler
             refresh: true,
         }),
     ],
@@ -197,25 +108,112 @@ export default defineConfig({
 });
 ```
 
-### Démarage du serveur local
 
-Après avoir mis en place l'environnement de développement avec Vite.js et les plugins nécessaires, l'étape suivante consiste à lancer et tester l'application.
+##### Chargement des assets dans le HTML avec Vite.js
 
-L'exécution du serveur de développement Vite.js peut être effectuée grâce à la commande :
+Il faut ensuite charger ces fichiers compilés dans le Layout blade principal `/ressources/views/loayout.blade.php` grace à la directive spéciale `@vite`.
 
-```bash
-npm run dev
+Par exemple, pour les deux fichiers présents dans le `input` de `vite.config.js` ci-dessus, on peut les charger dans le `<head>` avec `@vite('resources/css/app.css')` et `@vite('resources/css/app.js')`. Ca remplace le `<style src=...></style>` pour permettre le live reload pendant le dev, le changement de nom à chaque nouveau build (évite d'avoir de vieux fichiers obsolètes en cache) etc.
+
+```html
+<head>
+    <meta charset="utf-8">
+    <title>{{ $title ?? env('APP_NAME') }}</title>
+    <meta name="description" content="{{ $description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    ...
+
+    {{-- Chargement du CSS --}}
+    // highlight-start
+    @vite('resources/css/app.css')
+    // highlight-end
+
+    @stack('styles')
+
+    @stack('js_vars')
+</head>
+<body>
+
+    ...
+
+    {{-- Chargement des js --}}
+    // highlight-start
+    @vite('resources/js/app.js')
+    // highlight-end
+</body>
 ```
 
-En parallèle au serveur Vite.js, le serveur PHP local peut être lancé. Que ce soit via PHP Artisan ou WAMP dépend de la configuration choisie.
+:::info
+Pour ajouter de nouveaux fichiers CSS au projet projet, vous pouvez soit les ajouter dans `vite.config.js`, soit dans le fichier CSS de base (`resources/css/app.css` par exemple) avec un `@import "../../node_modules/@fancyapps/ui/dist/fancybox/fancybox.css";` par exemple.
+:::
+
+## Démarrage du serveur local
+
+On peut exécuter Laravel via PHP (Wamp avec un VirtualHost et une ligne dans le fichier Hosts de Widnows, par exemple), ou via le serveur intégré (basique, mais pratique pour dépanner) :
 
 ```bash
 php artisan serve
 ```
 
-À ce stade, vous devriez pouvoir accéder à votre application via le navigateur et voir les modifications en temps réel à mesure que vous les apportez.
+Pour les assets et le live reload, lancer Vite.js :
+```bash
+npm run dev
+```
 
-Notez que si vous ajoutez de nouveaux fichiers CSS à votre projet, vous devrez les importer dans le fichier resources/css/app.css pour qu'ils soient pris en compte. Cela garantira que votre CSS est correctement inclus et appliqué à votre application.
+
+
+
+## Installation de plugins JS fréquents
+
+### jQuery
+
+```bash
+npm install jquery --save-dev
+```
+Puis dans `ressources/js/bootstrap.js`
+```js
+import axios from 'axios';
+window.axios = axios;
+
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+// highlight-start
+/* -------   jQuery   ------- */
+// npm install jquery --save-dev
+import $ from 'jquery';
+window.$ = $;
+// highlight-end
+```
+
+### Fancybox 
+
+```bash
+npm install @fancyapps/ui --save-dev
+```
+
+`resources/css/app.css`
+```css
+@import "../../node_modules/@fancyapps/ui/dist/fancybox/fancybox.css";
+```
+
+`resources/js/bootstrap.js`
+```js
+/* -------   jQuery   ------- */
+import $ from 'jquery';
+window.$ = $;
+
+// highlight-start
+/* -------   Fancybox   ------- */
+// npm install @fancyapps/ui --save-dev
+// pour le css : @import "../../node_modules/@fancyapps/ui/dist/fancybox/fancybox.css";
+import { Fancybox } from "@fancyapps/ui";
+Fancybox.bind();
+// highlight-end
+```
+
+
+
 
 ## Plugins Laravel
 
