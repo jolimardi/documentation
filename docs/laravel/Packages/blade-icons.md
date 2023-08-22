@@ -2,29 +2,22 @@
 title: Blade-icons
 ---
 
-## blade-ui-kit/blade-icons avec codeat3/blade-coolicons
+## Blade icons avec coolicons
 
-Permet l'utilisation d'icon en blade directive dans le projet 
-
-```
-@svg('camera', 'w-6 h-6')
-```
-
-Plus d'information sur la documentation du package : https://blade-ui-kit.com/blade-icons
-
-#### Composer command 
-
-##### blade-ui-kit/blade-icons
-
+**Nom des packages :** blade-ui-kit/blade-icons - codeat3/blade-coolicons
 
 ```bash
 composer require blade-ui-kit/blade-icons
+
+php artisan vendor:publish --tag=blade-icons
 ```
-
-
-##### codeat3/blade-coolicons
-
-
+Et 
 ```bash
 composer require codeat3/blade-coolicons
+
+php artisan vendor:publish --tag=blade-coolicons-config
 ```
+
+Permet l'utilisation de la directive `@svg('icon-name')`.
+
+> Retrouver tout les nom d'icône sur la page [Blade-icons](https://blade-ui-kit.com/blade-icons?set=53)
