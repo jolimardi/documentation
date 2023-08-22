@@ -191,7 +191,16 @@ public function render(): View|Closure|string {
 ```
 Puis créer le template principal
 ```php title="/ressources/views/layout.blade.php"
+    <!-- @TODO A COMPLETER -->
 
+    <!-- GOOGLE FONTS -->
+    @php($google_fonts = 'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap')
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="{{ $google_fonts }}" />
+    <link rel="stylesheet" href="{{ $google_fonts }}" media="print" onload="this.media='all'" />
+    <noscript>
+        <link rel="stylesheet" href="{{ $google_fonts }}" />
+    </noscript>
 ```
 
 ## Vite.js
