@@ -117,6 +117,8 @@ module.exports = {
         },
         'laravel/Packages/jquery',
         'laravel/Packages/fancybox',
+        'laravel/Packages/laravel-form-components',
+        'laravel/Packages/create-form',
       ],
     }
   ],
