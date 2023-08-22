@@ -13,19 +13,47 @@ composer require jolimardi/laravel-mysections:dev-main
 
 Accéder à la création de sections, éxécuter :
 
-```bash
+```bash title="console"
 php artisan vendor:publish --provider="JoliMardi\MySections\MySectionsServiceProvider"
-```
-```bash
+
 php artisan migrate
 ```
 
-Importer le css des sections dans `resources/css/app.css` : 
+Importer le css des sections :
 
-```css
+```css title="resources/css/app.css"
 @import "../../public/vendor/mysections/sections.css";
 ```
 
-Utiliser `@mySection($data, $key)` pour afficher la section après l'avoir créer dans nova. 
+Envoyer les identifiants des sections à la vue : 
+
+```php title="app/Http/Controllers/IndexController.php"
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Section;
+
+class IndexController extends Controller {
+
+    public function homepage() {
+
+        //keyBy permet de mettre une column (ici "$section->key") en index du tableau au lieu de 0 => $item1, 1 => $item2 etc.
+        $sections = Section::where('key', 'LIKE', 'home.%')->get()->keyBy('key');
+
+        return view('homepage', compact('sections'));
+
+    }
+
+}
+```
+
+Puis utiliser la directive dans une vue : 
+
+```php title="resources/view/homepage.blade.php"
+<x-section>
+    @mySection($sections, 'home.apropos')
+</x-section>
+```
 
 Plus d'information sur la documentation du package : https://github.com/jolimardi/laravel-sections
