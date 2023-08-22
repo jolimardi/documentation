@@ -7,65 +7,196 @@ title: Step by step
 
 Dans cette page, nous allons créer une application Laravel complète avec un bon nombre de fonctionnalité. Du point de vue de la console d'abord, et si besoin nous modifierons légèrement le code. 
 
+
+
+
+
+
 ## Installer Laravel 
 
 ### Projet de base Laravel
 
 :::info
-Remplacer `mon-application` par le nom du projet. Le projet sera créé dans un sous-dossier.
+Remplacer `nom-du-site` par le nom du projet. Le projet sera créé dans un sous-dossier.
 :::
 ```bash
-composer create-project laravel/laravel mon-application
+composer create-project laravel/laravel nom-du-site
+cd nom-du-site
 composer update
 npm install
+php artisan key:generate
 ```
 
-### Laravel Nova
+### Configuration du .env
+Il faut ensuite éditer le `.env` à la racine, pour qu'il ressemble à ça :
+```bash title="/.env"
+APP_NAME="Mon Site"
+APP_ENV=local
+APP_KEY=base64:M5qwgNN9c3kAR3aoQkCKwKzLb/oZbbtub2HNvcvlJpc=
+APP_DEBUG=true
+APP_URL=http://mon-site.local
 
-#### Il faut d'abord ajouter le repo privé et ses credentials :
-```
-composer config repositories.nova '{"type": "composer", "url": "https://nova.laravel.com"}' --file composer.json
+# NOVA_AUTHORIZED_EMAILS='romain.cherot@gmail.com, hodeeemilien@gmail.com, yohan.sati@gmail.com' # Modifier app/Providers/NovaServiceProvider.php dans la fonction gate() pour ajouter :
+# protected function gate() {
+#        Gate::define('viewNova', function ($user) {
+#            $authorized_emails_str = ENV('NOVA_AUTHORIZED_EMAILS', 'romain.cherot@gmail.com, hodeeemilien@gmail.com');
+#            $authorized_emails = explode(',', $authorized_emails_str);
+#            $authorized_emails = array_map('trim', $authorized_emails);
+#            return in_array($user->email, $authorized_emails);
+#        });
+#    }
+
+# SENDINBLUE_KEY="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"
+# SENDINBLUE_FROM_ADDRESS="contact@yohansati.com"
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=monsite
+DB_USERNAME=root
+DB_PASSWORD="motdepasseDB"
+
+
+## REDIS - Used for Cache and Sessions (available on Forge)
+## Comment if no redis available on your server
+
+# CACHE_DRIVER=redis
+# SESSION_DRIVER=redis
+# SESSION_LIFETIME=1440 # 1 jour en minutes
+
+# REDIS_HOST=127.0.0.1
+# REDIS_PASSWORD=null
+# REDIS_PORT=6379
+
+# FILESYSTEM_DISK=local
+
 ```
 
-Puis entrer ses credentials pour ne pas avoir à les entrer à chaque fois (adresse mail et clé d'api), cette commande va ajouter auth.json à la racine avec les credentials (ne pas versionner ce fichier).
-```
-composer config http-basic.nova.laravel.com example@mail.com REMPLACER_PAR_NOVA_KEY
-```
+## Démarrage du serveur local
 
-#### Ensuite, installer Nova
+On peut exécuter Laravel via PHP (Wamp avec un VirtualHost et une ligne dans le fichier Hosts de Widnows, par exemple), ou via le serveur intégré (basique, mais pratique pour dépanner) :
 
 ```bash
-composer update --prefer-dist
-php artisan nova:install
+php artisan serve
+```
+
+Pour les assets et le live reload, lancer Vite.js :
+```bash
+npm run dev
+```
+
+
+
+
+## Installation des packages Composer
+
+### Basiques
+```bash
+composer require barryvdh/laravel-debugbar
+```
+
+
+### Blade Icons
+```bash
+composer require blade-ui-kit/blade-icons
+composer require codeat3/blade-coolicons
+
+php artisan vendor:publish --tag=blade-icons
+php artisan vendor:publish --tag=blade-coolicons-config
+```
+
+Permet l'utilisation de la directive `@svg('icon-name')`.
+> Retrouver tout les nom d'icône sur la page [Blade-icons](https://blade-ui-kit.com/blade-icons?set=53)
+
+
+### CSS JoliMardi
+
+```bash
+cd ressources/css
+git clone https://github.com/jolimardi/jolimardi-css
+```
+Puis importer le CSS dans le projet :
+```css title="resources/css/app.css"
+@import "jolimardi-css/jolimardi.css";
+```
+:::info
+Pour mettre à jour ce CSS, exécuter `git submodule update --remote --merge` (pratique à mettre dans le Deploy Script de Forge par exemple, après le `git pull`).
+:::
+
+### Menu JoliMardi
+
+```bash
+composer require jolimardi/laravel-menu:dev-master
+php artisan vendor:publish --provider="JoliMardi\Menu\MenuServiceProvider" --tag=config
+```
+
+Ajouter le component `<x-menu/>` dans un template blade, là où vous voulez afficher le menu.
+Modifier `config/menu.yml` pour ajouter des routes au composant.
+
+### Sections JoliMardi
+
+```bash
+composer require jolimardi/laravel-mysections:dev-main
+```
+> `:dev-main` permet d'outre-passer la vérification de stabilité pour le moment.
+
+- Il est déjà possible d'utiliser le composant `<x-section><x-section />` ici.
+
+Accéder à la création de sections, éxécuter :
+
+```bash
+php artisan vendor:publish --provider="JoliMardi\MySections\MySectionsServiceProvider"
+```
+```bash
 php artisan migrate
 ```
-:::info
- Certaines configuration de database peuvent sortir une erreur `SQLSTATE[42000]: Syntax error or access violation: 1071 La clé est trop longue.` Dans ce cas, ajouter dans `app/Service/AppServiceProvider.php` la ligne suivante dans la fonction boot :
-```php
-public function boot(): void {
-    Schema::defaultStringLength(191);
-}
+
+Importer le css des sections dans `resources/css/app.css` : 
+
+```css
+@import "../../public/vendor/mysections/sections.css";
 ```
-:::
 
-:::info
-Assurez-vous d'avoir les bonnes infos de connexion à la base de données dans le fichier .env avant le `migrate`
-:::
+Utiliser `@mySection($data, $key)` pour afficher la section après l'avoir créer dans nova. 
 
-#### Ajouter le premier utilisateur
-
-Il faut maintenant ajouter un utilisateur pour pouvoir se connecter au dashboard nova (`http://mon-url.com/nova`) :
+### Flash
 
 ```bash
-php artisan nova:user
+composer require jolimardi/laravel-flash:dev-master
 ```
-Puis suivre les instructions (choix d'un nom, d'un email et d'un mot de passe pour créer l'utilisateur).
+> `:dev-main` permet d'outre-passer la vérification de stabilité pour le moment.
 
-**Pour plus de détails sur Laravel nova, retrouvez la documentation officielle ici : https://nova.laravel.com/docs/4.0/installation.html**
+Ajouter l'alias personnalisé dans `config/app.php` -> `aliases`:
 
-### Vite.js
+```php
+'MyFlash' => JoliMardi\Flash\Flash::class,
+```
 
-##### Vite.js 
+Utiliser dans un controlleur `Flash::success('Ceci est un message de succès');`.
+
+> Retrouvez tout les types de message dans la documentation du package : https://github.com/jolimardi/laravel-flash
+
+
+## Création du Layout Blade
+
+```
+php artisan make:component Layout
+```
+```php title="/app/Views/Components/Layout.php"
+public function render(): View|Closure|string {
+    // highlight-start
+    return view('layout');
+    // highlight-end
+}
+```
+Puis créer le template principal
+```php title="/ressources/views/layout.blade.php"
+
+```
+
+## Vite.js
+
+#### Vite.js 
 
 Vite.js est le builder js utilisé par Laravel. Cela permet d'ajouter des plugins au projet via `npm`, de compiler les assets (js, scss, images...) et de live-reload les pages pendant le dev.
 
@@ -81,7 +212,7 @@ npm install autoprefixer --save-dev
 
 Puis configuration à la racine du projet, dans `vite.config.js` :
 
-```js
+```js title="/vite.config.js"
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 
@@ -111,11 +242,11 @@ export default defineConfig({
 
 ##### Chargement des assets dans le HTML avec Vite.js
 
-Il faut ensuite charger ces fichiers compilés dans le Layout blade principal `/ressources/views/loayout.blade.php` grace à la directive spéciale `@vite`.
+Il faut ensuite charger ces fichiers compilés dans le Layout blade principal `/ressources/views/layout.blade.php` grace à la directive spéciale `@vite`.
 
 Par exemple, pour les deux fichiers présents dans le `input` de `vite.config.js` ci-dessus, on peut les charger dans le `<head>` avec `@vite('resources/css/app.css')` et `@vite('resources/css/app.js')`. Ca remplace le `<style src=...></style>` pour permettre le live reload pendant le dev, le changement de nom à chaque nouveau build (évite d'avoir de vieux fichiers obsolètes en cache) etc.
 
-```html
+```html title="/ressources/views/layout.blade.php"
 <head>
     <meta charset="utf-8">
     <title>{{ $title ?? env('APP_NAME') }}</title>
@@ -148,18 +279,70 @@ Par exemple, pour les deux fichiers présents dans le `input` de `vite.config.js
 Pour ajouter de nouveaux fichiers CSS au projet projet, vous pouvez soit les ajouter dans `vite.config.js`, soit dans le fichier CSS de base (`resources/css/app.css` par exemple) avec un `@import "../../node_modules/@fancyapps/ui/dist/fancybox/fancybox.css";` par exemple.
 :::
 
-## Démarrage du serveur local
 
-On peut exécuter Laravel via PHP (Wamp avec un VirtualHost et une ligne dans le fichier Hosts de Widnows, par exemple), ou via le serveur intégré (basique, mais pratique pour dépanner) :
+## Laravel Nova
 
-```bash
-php artisan serve
+### Il faut d'abord ajouter le repo privé et ses credentials :
+```
+composer config repositories.nova composer https://nova.laravel.com
 ```
 
-Pour les assets et le live reload, lancer Vite.js :
-```bash
-npm run dev
+Puis entrer ses credentials pour ne pas avoir à les entrer à chaque fois (adresse mail et clé d'api), cette commande va ajouter auth.json à la racine avec les credentials (ne pas versionner ce fichier).
 ```
+composer config http-basic.nova.laravel.com example@mail.com REMPLACER_PAR_NOVA_KEY
+```
+
+### Ensuite, installer Nova
+
+:::info
+Assurez-vous d'avoir les bonnes infos de connexion à la base de données dans le fichier .env avant le `migrate`
+:::
+
+```bash
+composer require laravel/nova
+php artisan nova:install
+php artisan migrate
+```
+:::info
+ Certaines configuration de database peuvent sortir une erreur `SQLSTATE[42000]: Syntax error or access violation: 1071 La clé est trop longue.` Dans ce cas, ajouter dans `app/Service/AppServiceProvider.php` la ligne suivante dans la fonction boot :
+```php title="/app/Service/AppServiceProvider.php"
+public function boot(): void {
+    Schema::defaultStringLength(191);
+}
+```
+:::
+
+
+### Ajouter le premier utilisateur
+
+Il faut maintenant ajouter un utilisateur pour pouvoir se connecter au dashboard nova (`http://mon-url.com/nova`) :
+
+```bash
+php artisan nova:user
+```
+Puis suivre les instructions (choix d'un nom, d'un email et d'un mot de passe pour créer l'utilisateur).
+
+
+### Important, ajouter les emails autorisés
+
+Lorsque l'on n'est plus en environnement `local`, Nova vérifie les adresses mail autorisées, en plus des Nova Users créés. Pour cela, il faut ajouter les emails autorisés dans `app/Providers/NovaServiceProvider.php`, dans la fonction `gate()` :
+
+```php title="/app/Service/NovaServiceProvider.php"
+protected function gate(){
+    Gate::define('viewNova', function ($user) {
+        $authorized_emails_str = ENV('NOVA_AUTHORIZED_EMAILS', 'romain.cherot@gmail.com, hodeeemilien@gmail.com');
+        $authorized_emails = explode(',', $authorized_emails_str);
+        $authorized_emails = array_map('trim', $authorized_emails);
+        return in_array($user->email, $authorized_emails);
+    });
+}
+```
+et en ajoutant dans le `.env` :
+``` title="/.env"
+NOVA_AUTHORIZED_EMAILS='romain.cherot@gmail.com, hodeeemilien@gmail.com, yohan.sati@gmail.com'
+```
+
+**Pour plus de détails sur Laravel nova, retrouvez la documentation officielle ici : https://nova.laravel.com/docs/4.0/installation.html**
 
 
 
@@ -171,8 +354,7 @@ npm run dev
 ```bash
 npm install jquery --save-dev
 ```
-Puis dans `ressources/js/bootstrap.js`
-```js
+```js title="/ressources/js/bootstrap.js"
 import axios from 'axios';
 window.axios = axios;
 
@@ -192,13 +374,11 @@ window.$ = $;
 npm install @fancyapps/ui --save-dev
 ```
 
-`resources/css/app.css`
-```css
+```css  title="resources/css/app.css"
 @import "../../node_modules/@fancyapps/ui/dist/fancybox/fancybox.css";
 ```
 
-`resources/js/bootstrap.js`
-```js
+```js title="/ressources/js/bootstrap.js"
 /* -------   jQuery   ------- */
 import $ from 'jquery';
 window.$ = $;
@@ -219,42 +399,6 @@ Fancybox.bind();
 
 Suite de plugin, référez vous à notre documentation dans `Installation/Utilisation` pour avoir plus à leur propos.
 
-### Génériques
-
----
-
-```bash
-composer require barryvdh/laravel-debugbar
-```
-
-Permet d'avoir un meilleur insight sur l'application directement dans le navigateur.
-
---- 
-
-```bash
-composer require blade-ui-kit/blade-icons
-
-php artisan vendor:publish --tag=blade-icons
-```
-Et 
-```bash
-composer require codeat3/blade-coolicons
-
-php artisan vendor:publish --tag=blade-coolicons-config
-```
-
-Permet l'utilisation de la directive @svg('icon-name').
-> Retrouver tout les nom d'icône sur la page [Blade-icons](https://blade-ui-kit.com/blade-icons?set=53)
-
---- 
-
-```bash
-composer require guzzlehttp/guzzle
-```
-
-Permet la gestion de requête PHP HTTP, utilisé avec Brevo pour le mailing.
-
---- 
 
 ### Nova helpers
 
@@ -309,69 +453,6 @@ php artisan vendor:publish --provider="Mostafaznv\NovaCkEditor\FieldServiceProvi
 
 Les plugins ajouter par JoliMardi, rendez-vous sur la documentation du package pour plus d'informations.
 
-### CSS
-
-Pour ajouter le css de JoliMardi, récupérer le zip du dépot https://github.com/jolimardi/jolimardi-css, puis décompresser dans votre projet dans `resources/css`.
-Et enfin, importer dans `resources/css/app.css` :
-```css
-@import "jolimardi-css/jolimardi.css";
-```
-
-### Menu
-
-```bash
-composer require jolimardi/laravel-menu
-```
-Puis
-```bash
-php artisan vendor:publish --provider="JoliMardi\Menu\MenuServiceProvider"
-```
-
-Ajouter le component `<x-menu/>` dans un template blade, là où vous voulez afficher le menu.
-Modifier `config/menu.yml` pour ajouter des routes au composant.
-
-### Sections
-
-```bash
-composer require jolimardi/laravel-mysections:dev-main
-```
-> `:dev-main` permet d'outre-passer la vérification de stabilité pour le moment.
-
-- Il est déjà possible d'utiliser le composant `<x-section><x-section />` ici.
-
-Accéder à la création de sections, éxécuter :
-
-```bash
-php artisan vendor:publish --provider="JoliMardi\MySections\MySectionsServiceProvider"
-```
-```bash
-php artisan migrate
-```
-
-Importer le css des sections dans `resources/css/app.css` : 
-
-```css
-@import "../../public/vendor/mysections/sections.css";
-```
-
-Utiliser `@mySection($data, $key)` pour afficher la section après l'avoir créer dans nova. 
-
-### Flash
-
-```bash
-composer require jolimardi/laravel-flash:dev-master
-```
-> `:dev-main` permet d'outre-passer la vérification de stabilité pour le moment.
-
-Ajouter l'alias personnalisé dans `config/app.php` -> `aliases`:
-
-```php
-'MyFlash' => JoliMardi\Flash\Flash::class,
-```
-
-Utiliser dans un controlleur `Flash::success('Ceci est un message de succès');`.
-
-> Retrouvez tout les types de message dans la documentation du package : https://github.com/jolimardi/laravel-flash
 
 
 ## @TODO 
