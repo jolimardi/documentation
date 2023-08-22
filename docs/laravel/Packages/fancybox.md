@@ -8,14 +8,14 @@ title: Fancybox
 npm install @fancyapps/ui --save-dev
 ```
 
-Dans `resources/css/app.css` :
-```css
+Puis ajouter dans les fichiers ci-dessous :
+
+```css title="resources/css/app.css"
 @import "../../node_modules/@fancyapps/ui/dist/fancybox/fancybox.css";
 ```
 
-Dans `resources/js/bootstrap.js`:
 
-```js
+```js title="resources/js/bootstrap.js"
 /* -------   jQuery   ------- */
 import $ from 'jquery';
 window.$ = $;
