@@ -112,8 +112,11 @@ module.exports = {
           items: [
             'laravel/Packages/jm-menu',
             'laravel/Packages/jm-sections',
+            'laravel/Packages/jm-flash',
           ]
         },
+        'laravel/Packages/jquery',
+        'laravel/Packages/fancybox',
       ],
     }
   ],
