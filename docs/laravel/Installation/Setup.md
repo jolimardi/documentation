@@ -36,7 +36,7 @@ APP_KEY=base64:M5qwgNN9c3kAR3aoQkCKwKzLb/oZbbtub2HNvcvlJpc=
 APP_DEBUG=true
 APP_URL=http://mon-site.local
 
-# NOVA_AUTHORIZED_EMAILS='romain.cherot@gmail.com, hodeeemilien@gmail.com, yohan.sati@gmail.com' # Modifier app/Providers/NovaServiceProvider.php dans la fonction gate() pour ajouter :
+# NOVA_AUTHORIZED_EMAILS='mon-email@gmail.com, deuxieme-email@gmail.com' # Modifier app/Providers/NovaServiceProvider.php dans la fonction gate() pour ajouter :
 # protected function gate() {
 #        Gate::define('viewNova', function ($user) {
 #            $authorized_emails_str = ENV('NOVA_AUTHORIZED_EMAILS', 'romain.cherot@gmail.com, hodeeemilien@gmail.com');
@@ -46,8 +46,8 @@ APP_URL=http://mon-site.local
 #        });
 #    }
 
-# SENDINBLUE_KEY="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"
-# SENDINBLUE_FROM_ADDRESS="contact@yohansati.com"
+# SENDINBLUE_KEY="xkeysib-A_COMPLETER"
+# SENDINBLUE_FROM_ADDRESS="contact@mon-site.com"
 
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -330,7 +330,7 @@ Lorsque l'on n'est plus en environnement `local`, Nova vérifie les adresses mai
 ```php title="/app/Service/NovaServiceProvider.php"
 protected function gate(){
     Gate::define('viewNova', function ($user) {
-        $authorized_emails_str = ENV('NOVA_AUTHORIZED_EMAILS', 'romain.cherot@gmail.com, hodeeemilien@gmail.com');
+        $authorized_emails_str = ENV('NOVA_AUTHORIZED_EMAILS', 'mon-email@gmail.com, deuxieme-email@gmail.com');
         $authorized_emails = explode(',', $authorized_emails_str);
         $authorized_emails = array_map('trim', $authorized_emails);
         return in_array($user->email, $authorized_emails);
@@ -339,7 +339,7 @@ protected function gate(){
 ```
 et en ajoutant dans le `.env` :
 ``` title="/.env"
-NOVA_AUTHORIZED_EMAILS='romain.cherot@gmail.com, hodeeemilien@gmail.com, yohan.sati@gmail.com'
+NOVA_AUTHORIZED_EMAILS='mon-email@gmail.com, deuxieme-email@gmail.com'
 ```
 
 **Pour plus de détails sur Laravel nova, retrouvez la documentation officielle ici : https://nova.laravel.com/docs/4.0/installation.html**
