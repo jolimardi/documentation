@@ -217,7 +217,7 @@ Fancybox.bind();
 
 ## Plugins Laravel
 
-Suite de plugin, référez vous à notre documentation dans `Installation/Utilisation` pour avoir plus à leur propos.
+Suite de plugin, référez vous à notre documentation dans la catégorie `Packages` pour avoir plus à leur propos.
 
 ### Génériques
 
@@ -376,6 +376,5 @@ Utiliser dans un controlleur `Flash::success('Ceci est un message de succès');`
 
 ## @TODO 
 - Supprimer Images et Videos related avec ckeditor, gérer par media-librairy
-- Ajouter les packages jolimardi sections/menu/flashmessage
 - Améliorer laravel-mysections erreur stabilité, ajouter une version
 - AJouter publishables pour jolimardi/laravel-flash pour le composant `<x-flash-messages />`

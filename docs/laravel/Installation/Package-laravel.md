@@ -65,7 +65,7 @@ composer require ebess/advanced-nova-media-library
 ```
 
 
-### guzzlehttp/guzzle```bash
+### guzzlehttp/guzzle
 
 
 
