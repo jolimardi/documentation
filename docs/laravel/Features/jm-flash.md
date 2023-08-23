@@ -2,7 +2,7 @@
 title: Jolimardi/Laravel-flash
 ---
 
-### Flash
+## Facade Flash
 
 ```bash title="console"
 composer require jolimardi/laravel-flash:dev-master
@@ -10,7 +10,7 @@ composer require jolimardi/laravel-flash:dev-master
 php artisan vendor:publish --provider="JoliMardi\Flash\FlashServiceProvider"
 ```
 > `:dev-main` permet d'outre-passer la vérification de stabilité pour le moment.
-> Et publish permet de modifier le template d'affichage 
+> `vendor:publish` permet d'avoir accès au template qui affiche les messages dans `resources/views/vendor/flash-messages/` 
 
 Ajouter l'alias personnalisé dans `config/app.php` -> `aliases`:
 
@@ -24,10 +24,10 @@ Ajouter l'alias personnalisé dans `config/app.php` -> `aliases`:
 :::info
 On évite d'avoir Flash comme alias à cause de la facade Flash de Laravel par défaut
 
-Cet alias s'utilise dans la vue uniquement. Il n'y a pas besoin de la modifier par défaut.
+Cet alias s'utilise dans la vue uniquement. Il n'y a pas besoin de la modifier par défaut
 :::
 
-Après avoir publish on retrouvera la vue qui display les messages :
+Après avoir publish on retrouvera la vue qui display les messages, **ne pas modifier par défaut :** 
 
 ```php title="resources/view/vendor/flash-messages/message.blade.php"
 @props([
@@ -77,7 +77,7 @@ Après avoir publish on retrouvera la vue qui display les messages :
 @endif
 ```
 
-Puis l'utiliser dans un controller, exemple : 
+Puis utiliser la facade dans un controller, exemple : 
 
 ```php title="app/Http/Controller/IndexController.php"
 use JoliMardi\Flash\Flash;
@@ -101,7 +101,7 @@ class IndexController extends Controller {
 La facade Flash de jolimardi utilise le package notiflix pour display les messages, il n'y a donc pas besoin de l'insérer dans la vue. Tout est pris en charge par défaut.
 :::
 
-### Installer notiflix
+## Installer notiflix
 
 Installer le package : 
 

@@ -2,9 +2,9 @@
 title: Préparer web.php
 ---
 
-## Configurer `routes/web.php` 
+## Configurer le ServiceProvider 
 
-Pour simplifier l'écriture des routes, on ajoute un namespace au ServiceProvider :
+Pour simplifier l'écriture des routes dans `web.php`, on ajoute un namespace au RouteServiceProvider :
 
 ```php title="app/Services/RouteServicesProvider.php"
 <?php
@@ -46,6 +46,8 @@ class RouteServiceProvider extends ServiceProvider {
 :::info 
 Ajouter `->namespace('App\Http\Controllers')` est important pour avoir la syntaxe rapide IndexController@home dans web.php
 :::
+
+## Ecrire le fichier de route
 
 Ce qui nous permet d'écrire tel que : 
 
