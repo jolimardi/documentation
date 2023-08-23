@@ -92,7 +92,7 @@ npm run dev
 
 ### Basiques
 ```bash
-composer require barryvdh/laravel-debugbar
+composer require barryvdh/laravel-debugbar --dev
 ```
 
 
@@ -136,28 +136,29 @@ Modifier `config/menu.yml` pour ajouter des routes au composant.
 ### Sections JoliMardi
 
 ```bash
-composer require jolimardi/laravel-mysections:dev-main
-```
-> `:dev-main` permet d'outre-passer la vérification de stabilité pour le moment.
-
-- Il est déjà possible d'utiliser le composant `<x-section><x-section />` ici.
-
-Accéder à la création de sections, éxécuter :
-
-```bash
+composer require jolimardi/laravel-sections:dev-main
 php artisan vendor:publish --provider="JoliMardi\MySections\MySectionsServiceProvider"
-```
-```bash
 php artisan migrate
 ```
+Il est maintenant possible d'utiliser le composant `<x-section><x-section />`.
 
-Importer le css des sections dans `resources/css/app.css` : 
-
-```css
+#### Importer le CSS
+```css title="resources/css/app.css"
 @import "../../public/vendor/mysections/sections.css";
 ```
 
-Utiliser `@mySection($data, $key)` pour afficher la section après l'avoir créer dans nova. 
+#### Utilisation dans les Views
+
+```php 
+<body>
+    @mySection($all_sections_from_db, $key_of_the_section_to_display)
+</body>
+
+```
+
+#### Ajout d'une nouvelle section via Nova
+
+Se connecter à Nova pour ajouter une section. La clé est importante pour afficher la section (c'est son *machine name*). Il est possible d'ajouter des types de section (via Nova), puis de créer le nouveau template dans `/ressources/views/components/vendor/laravel-sections/ma-nouvelle-section.blade.php`
 
 ### Flash
 
@@ -168,8 +169,22 @@ composer require jolimardi/laravel-flash:dev-master
 
 Ajouter l'alias personnalisé dans `config/app.php` -> `aliases`:
 
-```php
-'MyFlash' => JoliMardi\Flash\Flash::class,
+```php title="/config/app.php"
+<?php
+
+use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\ServiceProvider;
+
+return [
+    ...
+    // Tout en bas du fichier
+
+    'aliases' => Facade::defaultAliases()->merge([
+        //highlight-start
+        'MyFlash' => JoliMardi\Flash\Flash::class,
+        //highlight-end
+    ])->toArray(),
+];
 ```
 
 Utiliser dans un controlleur `Flash::success('Ceci est un message de succès');`.
