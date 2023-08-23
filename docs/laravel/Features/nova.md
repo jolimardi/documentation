@@ -1,5 +1,5 @@
 ---
-title: Nova + helpers
+title: Ajouter Nova + helpers
 --- 
 
 # Nova
@@ -43,7 +43,27 @@ php artisan nova:user
 ```
 Puis suivre les instructions (choix d'un nom, d'un email et d'un mot de passe pour créer l'utilisateur).
 
+### Important, ajouter les emails autorisés
+
+Lorsque l'on n'est plus en environnement `local`, Nova vérifie les adresses mail autorisées, en plus des Nova Users créés. Pour cela, il faut ajouter les emails autorisés dans `app/Providers/NovaServiceProvider.php`, dans la fonction `gate()` :
+
+```php title="/app/Service/NovaServiceProvider.php"
+protected function gate(){
+    Gate::define('viewNova', function ($user) {
+        $authorized_emails_str = ENV('NOVA_AUTHORIZED_EMAILS', 'mon-email@gmail.com, deuxieme-email@gmail.com');
+        $authorized_emails = explode(',', $authorized_emails_str);
+        $authorized_emails = array_map('trim', $authorized_emails);
+        return in_array($user->email, $authorized_emails);
+    });
+}
+```
+et en ajoutant dans le `.env` :
+``` title="/.env"
+NOVA_AUTHORIZED_EMAILS='mon-email@gmail.com, deuxieme-email@gmail.com'
+```
+
 **Pour plus de détails sur Laravel nova, retrouvez la documentation officielle ici : https://nova.laravel.com/docs/4.0/installation.html**
+
 
 ### Nova helpers
 

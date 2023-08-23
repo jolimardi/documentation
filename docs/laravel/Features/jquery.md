@@ -1,5 +1,5 @@
 ---
-title: Jquery
+title: Ajouter Jquery
 ---
 
 # Installation de Jquery
@@ -8,9 +8,9 @@ title: Jquery
 npm install jquery --save-dev
 ```
 
-Puis dans `ressources/js/bootstrap.js`
+Puis ajouter dans le fichier ci-dessous :
 
-```js
+```js title="ressources/js/bootstrap.js"
 import axios from 'axios';
 window.axios = axios;
 
