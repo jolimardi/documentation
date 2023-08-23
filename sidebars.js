@@ -101,24 +101,26 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'Packages',
+      label: 'Features',
       items: [
-        'laravel/Packages/blade-icons',
-        'laravel/Packages/nova',
-        'laravel/Packages/nova-belongsToMany',
+        'laravel/Features/blade-icons',
+        'laravel/Features/nova',
+        'laravel/Features/nova-belongsToMany',
         {
           type: 'category',
           label: 'Jolimardi',
           items: [
-            'laravel/Packages/jm-menu',
-            'laravel/Packages/jm-sections',
-            'laravel/Packages/jm-flash',
+            'laravel/Features/jm-menu',
+            'laravel/Features/jm-sections',
+            'laravel/Features/jm-flash',
           ]
         },
-        'laravel/Packages/jquery',
-        'laravel/Packages/fancybox',
-        'laravel/Packages/laravel-form-components',
-        'laravel/Packages/create-form',
+        'laravel/Features/jquery',
+        'laravel/Features/fancybox',
+        'laravel/Features/laravel-form-components',
+        'laravel/Features/create-form',
+        'laravel/Features/notiflix',
+        'laravel/Features/web-php',
       ],
     }
   ],
