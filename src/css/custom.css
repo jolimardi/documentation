@@ -33,6 +33,11 @@
 }
 
 
+/* Higlight on darkVS code block */
+:root{
+    --docusaurus-highlighted-code-line-bg: #000;
+}
+
 .html-preview {
     padding: 20px;
     background-color: #fff;
