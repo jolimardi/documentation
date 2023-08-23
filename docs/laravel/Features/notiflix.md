@@ -1,5 +1,5 @@
 ---
-title: Notiflix
+title: Ajouter Notiflix
 ---
 
 # Installer notiflix

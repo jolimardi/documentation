@@ -1,5 +1,5 @@
 ---
-title: Jquery
+title: Ajouter Jquery
 ---
 
 # Installation de Jquery

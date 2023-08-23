@@ -1,5 +1,5 @@
 ---
-title: Protonemedia/laravel-form-component
+title: Ajouter des form-component
 ---
 
 # Installation de laravel-form-component

@@ -1,5 +1,5 @@
 ---
-title: Fancybox
+title: Ajouter Fancybox
 ---
 
 ### Fancybox 

@@ -1,5 +1,5 @@
 ---
-title: Blade-icons
+title: Ajouter Blade-icons
 ---
 
 ## Blade icons avec coolicons
