@@ -95,6 +95,19 @@ module.exports = {
       label: 'Installation',
       items: [
         'laravel/Installation/Setup',
+        {
+          type: 'category',
+          label: 'Step by step',
+          items: [
+            'laravel/Installation/StepByStep/laravel',
+            'laravel/Installation/StepByStep/package-composer',
+            'laravel/Installation/StepByStep/layout-principal',
+            'laravel/Installation/StepByStep/vite-app',
+            'laravel/Installation/StepByStep/jquery-et-plugins',
+            'laravel/Installation/StepByStep/laravel-nova',
+            'laravel/Installation/StepByStep/route-controller',
+          ],
+        },
         'laravel/Installation/package-laravel',
         'laravel/Installation/Configuration',
       ],
