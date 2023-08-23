@@ -191,6 +191,9 @@ public function render(): View|Closure|string {
 ```
 Puis créer le template principal
 ```php title="/ressources/views/layout.blade.php"
+<html lang="fr">
+
+<head>
     <!-- @TODO A COMPLETER -->
 
     <!-- GOOGLE FONTS -->
@@ -201,6 +204,21 @@ Puis créer le template principal
     <noscript>
         <link rel="stylesheet" href="{{ $google_fonts }}" />
     </noscript>
+
+    @vite('resources/css/app.css')
+
+    @stack('styles')
+
+    @stack('js_vars')
+</head>
+<body>
+    <!-- @TODO A COMPLETER -->
+    ...
+    {{-- Chargement des js --}}
+    @vite('resources/js/app.js')
+
+    @stack('scripts')
+</body>
 ```
 
 ## Vite.js
