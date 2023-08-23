@@ -92,7 +92,7 @@ npm run dev
 
 ### Basiques
 ```bash
-composer require barryvdh/laravel-debugbar
+composer require barryvdh/laravel-debugbar --dev
 ```
 
 
@@ -100,13 +100,54 @@ composer require barryvdh/laravel-debugbar
 ```bash
 composer require blade-ui-kit/blade-icons
 composer require codeat3/blade-coolicons
+# Créer le dossier qui contiendra les icones "custom" pour le projet
+mkdir ressources/icons
 
 php artisan vendor:publish --tag=blade-icons
-php artisan vendor:publish --tag=blade-coolicons-config
+php artisan view:clear
 ```
 
-Permet l'utilisation de la directive `@svg('icon-name')`.
-> Retrouver tout les nom d'icône sur la page [Blade-icons](https://blade-ui-kit.com/blade-icons?set=53)
+```php title="/config/blade-icons.php"
+<?php
+
+return [
+    'sets' => [
+        'default' => [
+            'path' => 'resources/icons',
+            'prefix' => '',
+        ],
+        // Coolicon est automatiquement dispo en plus de default s'il est installé
+    ],
+
+    // Global Default Classes - applied to all icons by default
+    'class' => 'icon',
+
+    'components' => [
+        // Disable the component, only use directive @svg(...) -> perf boost
+        'disabled' => true,
+    ],
+];
+```
+
+```php title="example.blade.php"
+<body>
+
+    // Pour afficher l'icone custom du projet /ressources/icons/icon-perso.svg
+    @svg('icon-perso')
+
+    // Pour afficher l'icone Coolicons Hamburger
+    @svg('coolicon-hamburger-md')
+
+    // Pour ajouter une classe, c'est le 2nd argument
+    @svg('coolicon-hamburger-md', 'ma-classe-pour-cette-icone')
+
+    // Rendu dans le HTML :
+    <svg class="icon ma-classe-pour-cette-icone" viewBox="0 0 24 24" fill="none"><g>...</g></svg>
+
+</body>
+```
+
+[La liste des icônes ici.](https://blade-ui-kit.com/blade-icons?set=53)
 
 
 ### CSS JoliMardi
@@ -136,28 +177,29 @@ Modifier `config/menu.yml` pour ajouter des routes au composant.
 ### Sections JoliMardi
 
 ```bash
-composer require jolimardi/laravel-mysections:dev-main
-```
-> `:dev-main` permet d'outre-passer la vérification de stabilité pour le moment.
-
-- Il est déjà possible d'utiliser le composant `<x-section><x-section />` ici.
-
-Accéder à la création de sections, éxécuter :
-
-```bash
+composer require jolimardi/laravel-sections:dev-main
 php artisan vendor:publish --provider="JoliMardi\MySections\MySectionsServiceProvider"
-```
-```bash
 php artisan migrate
 ```
+Il est maintenant possible d'utiliser le composant `<x-section><x-section />`.
 
-Importer le css des sections dans `resources/css/app.css` : 
-
-```css
+#### Importer le CSS
+```css title="resources/css/app.css"
 @import "../../public/vendor/mysections/sections.css";
 ```
 
-Utiliser `@mySection($data, $key)` pour afficher la section après l'avoir créer dans nova. 
+#### Utilisation dans les Views
+
+```php 
+<body>
+    @mySection($all_sections_from_db, $key_of_the_section_to_display)
+</body>
+
+```
+
+#### Ajout d'une nouvelle section via Nova
+
+Se connecter à Nova pour ajouter une section. La clé est importante pour afficher la section (c'est son *machine name*). Il est possible d'ajouter des types de section (via Nova), puis de créer le nouveau template dans `/ressources/views/components/vendor/laravel-sections/ma-nouvelle-section.blade.php`
 
 ### Flash
 
@@ -168,8 +210,22 @@ composer require jolimardi/laravel-flash:dev-master
 
 Ajouter l'alias personnalisé dans `config/app.php` -> `aliases`:
 
-```php
-'MyFlash' => JoliMardi\Flash\Flash::class,
+```php title="/config/app.php"
+<?php
+
+use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\ServiceProvider;
+
+return [
+    ...
+    // Tout en bas du fichier
+
+    'aliases' => Facade::defaultAliases()->merge([
+        //highlight-start
+        'MyFlash' => JoliMardi\Flash\Flash::class,
+        //highlight-end
+    ])->toArray(),
+];
 ```
 
 Utiliser dans un controlleur `Flash::success('Ceci est un message de succès');`.
@@ -194,7 +250,31 @@ Puis créer le template principal
 <html lang="fr">
 
 <head>
-    <!-- @TODO A COMPLETER -->
+    <meta charset="utf-8">
+    <title>{{ $title ?? env('APP_NAME') }}</title>
+    {{-- <meta name="description" content="{{ $description }}">--}}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:url" content="{{ url()->full() }}" />
+    <meta property="og:title" content="{{ $title ?? env('APP_NAME') }}" />
+    <meta property="og:site_name" content="{{ env('APP_NAME') }}" />
+    {{-- <meta property="og:description" content="{{ $description }}" />--}}
+    <meta property="og:type" content="website" />
+    {{-- <meta property="og:image" content="{{ og_image }}" /> --}}
+
+    <meta property="og:locale" content="fr-FR" />
+    <meta http-equiv="content-language" content="fr">
+    <meta name="language" content="fr">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
 
     <!-- GOOGLE FONTS -->
     @php($google_fonts = 'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap')
@@ -210,24 +290,77 @@ Puis créer le template principal
     @stack('styles')
 
     @stack('js_vars')
+
+    {{-- <livewire:styles /> --}}
 </head>
-<body>
-    <!-- @TODO A COMPLETER -->
-    ...
+
+
+
+<body class="page-{{ str_replace('.', '-', Route::currentRouteName()) }}">
+
+    {{-- Topbar et menu mobile --}}
+    <div class="topbar">
+        <div class="max-width-large">
+            <a href="{{ env('APP_URL') }}" class="logo"><span>Mon</span> Site</a>
+            {{--<x-menu />--}}
+            <div class="menu-bars" aria-label="Menu">
+                <span>menu</span>
+                @svg('coolicon-hamburger-md', 'menu-bars')
+            </div>
+        </div>
+    </div>
+    <div class="mobile-menu">
+        @svg('coolicon-close-md', 'menu-close')
+        {{--<x-menu />--}}
+    </div>
+    <div class="menu-overlay"></div>
+
+
+
+
+    <div class="main">
+
+        <x-flash-messages />
+
+        {{ $slot }}
+
+    </div>
+
+
+    <x-section class="footer text-white">
+        <a href="{{ env('APP_URL') }}" class="logo"><span>Mon</span> Site</a>
+
+        <div class="footer-menu">
+            {{--<p><a href="{{ route('admin.dashboard') }}">Dashboard</a></p>
+            <p><a href="{{ route('nova.login') }}">Panneau de bord Nova</a></p>
+            <p><a href="{{ route('realisations.list') }}">Réalisations</a></p>
+            <p><a href="{{ route('posts.list') }}">Conseils</a></p>
+            <p><a href="{{ route('test') }}">Test</a></p>--}}
+        </div>
+
+        [sections réseaux sociaux]
+
+    </x-section>
+
+    <div class="footer-line">
+        <p class="copyright">Copyright ©{{ date('Y') }} mon-site.com</p>
+        {{--<a href="{{ route('mentions-legales') }}">Mentions légales</a>--}}
+    </div>
+
     {{-- Chargement des js --}}
     @vite('resources/js/app.js')
 
     @stack('scripts')
+    {{-- <livewire:scripts /> --}}
 </body>
+
 ```
 
 ## Vite.js
 
-#### Vite.js 
-
 Vite.js est le builder js utilisé par Laravel. Cela permet d'ajouter des plugins au projet via `npm`, de compiler les assets (js, scss, images...) et de live-reload les pages pendant le dev.
 
-##### Compilation CSS avec Vite.js
+### Compilation CSS avec Vite.js
 
 Installation de quelques plugins pour PostCSS, PostCSS-Nesting et Autoprefixer
 
@@ -267,7 +400,7 @@ export default defineConfig({
 ```
 
 
-##### Chargement des assets dans le HTML avec Vite.js
+### Chargement des assets dans le HTML avec Vite.js
 
 Il faut ensuite charger ces fichiers compilés dans le Layout blade principal `/ressources/views/layout.blade.php` grace à la directive spéciale `@vite`.
 
@@ -305,6 +438,127 @@ Par exemple, pour les deux fichiers présents dans le `input` de `vite.config.js
 :::info
 Pour ajouter de nouveaux fichiers CSS au projet projet, vous pouvez soit les ajouter dans `vite.config.js`, soit dans le fichier CSS de base (`resources/css/app.css` par exemple) avec un `@import "../../node_modules/@fancyapps/ui/dist/fancybox/fancybox.css";` par exemple.
 :::
+
+
+
+## JS commun à tous les sites JoliMardi
+```js title="/ressources/js/app.js"
+import './bootstrap';
+
+/* ---------------    ci-dessous : JS commun à tous les sites, à déplacer   ---------------------- */
+
+$(function () {
+
+    //--------- Menu mobile ------------*/
+    $('.menu-bars, .menu-close, .home-menu-bars, .mobile-menu .menu a, .menu-overlay').click(function (e) {
+        e.stopPropagation();
+        $('body').toggleClass('mobile-menu-opened');
+    });
+
+
+    // Click on card [data-href]
+    $('[data-href]').on('click', function (e) {
+        if (!$(e.target).is('a, a *, .dropdown, .dropdown *')) {
+            e.preventDefault();
+            window.location = $(this).data('href');
+        }
+    });
+
+
+    /* ---------     Custom Scroll To (add data-anchor=#id)   ------------------------ */
+    $('[data-anchor]').on('click', function (e) {
+        var anchor = $(this).data('anchor');
+        if (anchor.charAt(0) != '#') {
+            anchor = '#' + anchor;
+        }
+        if ($(anchor).length > 0) {
+            myScrollTo(anchor); // Définie en bas du fichier
+        }
+    });
+    /* ----------------------------    Scroll To si hash    ------------------------ */
+    if (window.location.hash) {
+        var anchor = window.location.hash;
+        myScrollTo(anchor);
+        scrollAction();
+    }
+
+    /* --------- Scroll ------------- */
+    function scrollAction() {
+        var scrollPos = $(window).scrollTop();
+        if (scrollPos > 200) {
+            $('body').addClass('topbar-small');
+        } else {
+            $('body').removeClass('topbar-small');
+        }
+    }
+    $(window).on('scroll', throttle(scrollAction, 40));
+    $(window).on('load', scrollAction);
+});
+
+
+function myScrollTo(anchor) {
+    var $elem;
+    if (anchor instanceof jQuery) {
+        $elem = anchor;
+    } else {
+        var id = anchor;
+        $elem = $(id);
+    }
+    if ($elem.length == 0) {
+        return;
+    }
+    $("html, body").animate({ scrollTop: $elem.offset().top - 75 }, 200);
+}
+
+
+ 
+
+// Avoid `console` errors in browsers that lack a console.
+(function () {
+    var method;
+    var noop = function () {};
+    var methods = [
+        'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
+        'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
+        'markTimeline', 'profile', 'profileEnd', 'table', 'time', 'timeEnd',
+        'timeline', 'timelineEnd', 'timeStamp', 'trace', 'warn'
+    ];
+    var length = methods.length;
+    var console = (window.console = window.console || {});
+
+    while (length--) {
+        method = methods[length];
+
+        // Only stub undefined methods.
+        if (!console[method]) {
+            console[method] = noop;
+        }
+    }
+}());
+
+
+function throttle(fn, threshhold, scope) {
+    threshhold || (threshhold = 250);
+    var last,
+            deferTimer;
+    return function () {
+        var context = scope || this;
+        var now = +new Date,
+                args = arguments;
+        if (last && now < last + threshhold) {
+            // hold on to it
+            clearTimeout(deferTimer);
+            deferTimer = setTimeout(function () {
+                last = now;
+                fn.apply(context, args);
+            }, threshhold);
+        } else {
+            last = now;
+            fn.apply(context, args);
+        }
+    };
+}
+```
 
 
 ## Laravel Nova
