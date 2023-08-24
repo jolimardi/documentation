@@ -67,6 +67,19 @@ Puis importer le CSS dans le projet :
 ```css title="resources/css/app.css"
 @import "jolimardi-css/jolimardi.css";
 ```
+
+#### Ajouter le submodule au projet
+Créer `.gitmodules` à la racine du projet :
+
+```git title='/.gitmodules'
+[submodule "resources/css/jolimardi-css"]
+	path = resources/css/jolimardi-css
+	url = https://github.com/jolimardi/jolimardi-css/
+	update = rebase
+	branch = main
+```
+
+
 :::info
 Pour mettre à jour ce CSS, exécuter `git submodule update --remote --merge` (pratique à mettre dans le Deploy Script de Forge par exemple, après le `git pull`).
 :::
