@@ -24,7 +24,7 @@ APP_KEY=base64:M5qwgNN9c3kAR3aoQkCKwKzLb/oZbbtub2HNvcvlJpc=
 APP_DEBUG=true
 APP_URL=http://mon-site.local
 
-# NOVA_AUTHORIZED_EMAILS='mon-email@gmail.com, deuxieme-email@gmail.com' # Modifier app/Providers/NovaServiceProvider.php dans la fonction gate() pour ajouter :
+# NOVA_AUTHORIZED_EMAILS="mon-email@gmail.com, deuxieme-email@gmail.com" # Modifier app/Providers/NovaServiceProvider.php dans la fonction gate() pour ajouter :
 # protected function gate() {
 #        Gate::define('viewNova', function ($user) {
 #            $authorized_emails_str = ENV('NOVA_AUTHORIZED_EMAILS', 'romain.cherot@gmail.com, hodeeemilien@gmail.com');

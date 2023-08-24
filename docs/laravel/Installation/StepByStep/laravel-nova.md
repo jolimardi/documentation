@@ -29,6 +29,10 @@ php artisan migrate
 :::info
  Certaines configuration de database peuvent sortir une erreur `SQLSTATE[42000]: Syntax error or access violation: 1071 La clé est trop longue.` Dans ce cas, ajouter dans `app/Service/AppServiceProvider.php` la ligne suivante dans la fonction boot :
 ```php title="/app/Service/AppServiceProvider.php"
+use Illuminate\Support\ServiceProvider;
+
+...
+
 public function boot(): void {
     Schema::defaultStringLength(191);
 }

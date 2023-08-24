@@ -1,5 +1,6 @@
 ---
 title: Créer un formulaire basique de A à Z
+slug: creer-un-formulaire
 ---
 
 Ici, nous allons ajouter un formulaire de contact à un projet laravel neuf, de A à Z. 
@@ -386,6 +387,10 @@ class MonController extends Controller {
     }
 }
 ```
+
+:::note
+Attention à bien importer les différents services
+:::
 
 ## Fin
 
