@@ -1,10 +1,10 @@
 ---
-title: Ajouter Nova + helpers
+title: Ajouter Nova & helpers
 --- 
 
-# Nova
+## Nova
 
-#### Il faut d'abord ajouter le repo privé et ses credentials :
+### Ajouter le repo privé et ses credentials
 ```
 composer config repositories.nova '{"type": "composer", "url": "https://nova.laravel.com"}' --file composer.json
 ```
@@ -14,7 +14,7 @@ Puis entrer ses credentials pour ne pas avoir à les entrer à chaque fois (adre
 composer config http-basic.nova.laravel.com example@mail.com REMPLACER_PAR_NOVA_KEY
 ```
 
-#### Ensuite, installer Nova
+### Ensuite, installer Nova
 
 ```bash
 composer update --prefer-dist
@@ -34,7 +34,7 @@ public function boot(): void {
 Assurez-vous d'avoir les bonnes infos de connexion à la base de données dans le fichier .env avant le `migrate`
 :::
 
-#### Ajouter le premier utilisateur
+### Ajouter le premier utilisateur
 
 Il faut maintenant ajouter un utilisateur pour pouvoir se connecter au dashboard nova (`http://mon-url.com/nova`) :
 
@@ -43,7 +43,7 @@ php artisan nova:user
 ```
 Puis suivre les instructions (choix d'un nom, d'un email et d'un mot de passe pour créer l'utilisateur).
 
-### Important, ajouter les emails autorisés
+## Important, ajouter les emails autorisés
 
 Lorsque l'on n'est plus en environnement `local`, Nova vérifie les adresses mail autorisées, en plus des Nova Users créés. Pour cela, il faut ajouter les emails autorisés dans `app/Providers/NovaServiceProvider.php`, dans la fonction `gate()` :
 
@@ -65,7 +65,7 @@ NOVA_AUTHORIZED_EMAILS='mon-email@gmail.com, deuxieme-email@gmail.com'
 **Pour plus de détails sur Laravel nova, retrouvez la documentation officielle ici : https://nova.laravel.com/docs/4.0/installation.html**
 
 
-### Nova helpers
+## Nova helpers
 
 Tout les packages concernant Nova.
 
@@ -76,18 +76,33 @@ composer require ebess/advanced-nova-media-library
 
 ---
 
-Gestion de field multi relationnel avec : 
+### Gestion de field multi relationnel
+
 ```bash
 composer require benjacho/belongs-to-many-field
 ```
-Puis 
-```bash
-php artisan vendor:publish --tag=nova-media-library
+
+#### Utilisation commune 
+Exemple : 
+
+```php title='app/Nova/Ma-resource.php'
+use Benjacho\BelongsToManyField\BelongsToManyField;
+
+...
+class MaResource extends Resource { 
+    ...
+    public function fields(NovaRequest $request) {
+        ...
+        BelongsToManyField::make('Role Label', 'roles', 'App\Nova\Role')->optionsLabel('full_role_name'),
+        ...
+    }
+    ...
+}
 ```
 
 --- 
 
-Ajout d'autres langues pour Nova avec :
+### Ajouter d'autres langues pour Nova
 ```bash
 composer require coderello/laravel-nova-lang
 ```
@@ -98,19 +113,39 @@ php artisan nova-lang:publish fr
 
 ---
 
+### m-a-k-o/youtube-field
+
 Améliore la gestion vidéo : 
 ```bash
 composer require m-a-k-o/youtube-field
 ```
 
+#### Utilisation commune 
+
+Exemple : 
+
+```php title='app/Nova/Ma-resource.php'
+use MAKO\YoutubeField\YoutubeField;
+
+...
+class MaResource extends Resource { 
+    ...
+    public function fields(NovaRequest $request) {
+        ...
+        YoutubeField::make('Vidéo url', 'video_url')->hideFromIndex(),
+        ...
+    }
+    ...
+}
+```
+
+
+
 ---
 
-Editeur de texte dans Nova :
-```bash
-composer require mostafaznv/nova-ckeditor
-```
-Et 
-```bash
-php artisan vendor:publish --provider="Mostafaznv\NovaCkEditor\FieldServiceProvider"
-```
+### CKEditor 
+
+CKEditor est un editeur de texte dans Nova, son installation requiert un peu plus de travail, se rendre sur ["Ajouter Nova CKEditor"](add-ckeditor)
+
+
 

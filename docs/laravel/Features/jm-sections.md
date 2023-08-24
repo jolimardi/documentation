@@ -56,4 +56,14 @@ Puis utiliser la directive dans une vue :
 </x-section>
 ```
 
+## Ajouter une section dans Nova
+
+### Installer les helpers de Nova utilisé par ce package
+
+1. m-a-k-o/youtube-field
+
+```bash title='console'
+composer require m-a-k-o/youtube-field
+```
+
 Plus d'information sur la documentation du package : https://github.com/jolimardi/laravel-sections
