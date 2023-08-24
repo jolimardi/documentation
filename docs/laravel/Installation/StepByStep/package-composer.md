@@ -83,9 +83,20 @@ Modifier `config/menu.yml` pour ajouter des routes au composant.
 
 ## Sections JoliMardi
 
+:::info
+@TODO : ajouter `composer require ebess/advanced-nova-media-library` dans les pré-requis du package `laravel-section` dans le composer.json à la racine
+:::
+
+
 ```bash
-composer require jolimardi/laravel-sections:dev-main
+composer require ebess/advanced-nova-media-library
+php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="migrations"
+php artisan migrate
+php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="config"
+php artisan vendor:publish --tag=nova-media-library
+
 php artisan vendor:publish --provider="JoliMardi\MySections\MySectionsServiceProvider"
+composer require jolimardi/laravel-sections:dev-main
 php artisan migrate
 ```
 Il est maintenant possible d'utiliser le composant `<x-section><x-section />`.

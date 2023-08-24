@@ -71,7 +71,7 @@ Puis créer le template principal
     <div class="topbar">
         <div class="max-width-large">
             <a href="{{ env('APP_URL') }}" class="logo"><span>Mon</span> Site</a>
-            {{--<x-menu />--}}
+            <x-menu />
             <div class="menu-bars" aria-label="Menu">
                 <span>menu</span>
                 @svg('coolicon-hamburger-md', 'menu-bars')
@@ -80,7 +80,7 @@ Puis créer le template principal
     </div>
     <div class="mobile-menu">
         @svg('coolicon-close-md', 'menu-close')
-        {{--<x-menu />--}}
+        <x-menu />
     </div>
     <div class="menu-overlay"></div>
 
