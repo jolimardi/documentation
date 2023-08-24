@@ -91,25 +91,20 @@ module.exports = {
       id: 'laravel/intro',
     },
     {
+      type: 'doc',
+      id: 'laravel/Installation/package-laravel',
+    },
+    {
       type: 'category',
-      label: 'Installation',
+      label: 'Step by step',
       items: [
-        'laravel/Installation/Setup',
-        {
-          type: 'category',
-          label: 'Step by step',
-          items: [
-            'laravel/Installation/StepByStep/laravel',
-            'laravel/Installation/StepByStep/package-composer',
-            'laravel/Installation/StepByStep/layout-principal',
-            'laravel/Installation/StepByStep/vite-app',
-            'laravel/Installation/StepByStep/jquery-et-plugins',
-            'laravel/Installation/StepByStep/laravel-nova',
-            'laravel/Installation/StepByStep/route-controller',
-          ],
-        },
-        'laravel/Installation/package-laravel',
-        'laravel/Installation/Configuration',
+        'laravel/Installation/StepByStep/laravel',
+        'laravel/Installation/StepByStep/package-composer',
+        'laravel/Installation/StepByStep/layout-principal',
+        'laravel/Installation/StepByStep/vite-app',
+        'laravel/Installation/StepByStep/jquery-et-plugins',
+        'laravel/Installation/StepByStep/laravel-nova',
+        'laravel/Installation/StepByStep/route-controller',
       ],
     },
     {
@@ -128,6 +123,8 @@ module.exports = {
         'laravel/Features/blade-icons',
         'laravel/Features/laravel-form-components',
         'laravel/Features/create-form',
+        'laravel/Features/add-ckeditor',
+        'laravel/Features/install-from-repo',
       ],
     }
   ],
