@@ -106,7 +106,7 @@ class MaResource extends Resource {
 ```bash
 composer require coderello/laravel-nova-lang
 ```
-Et 
+Puis
 ```bash
 php artisan nova-lang:publish fr
 ```

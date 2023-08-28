@@ -8,7 +8,9 @@ title: Nova/BelongsToManyField
 composer require benjacho/belongs-to-many-field
 ```
 
-### Exemple d'utilisation commune 
+### Utilisation commune 
+
+Exemple : 
 
 ```php title='app/Nova/Ma-resource.php'
 use Benjacho\BelongsToManyField\BelongsToManyField;
