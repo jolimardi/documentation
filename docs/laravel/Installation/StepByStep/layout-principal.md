@@ -20,16 +20,16 @@ Puis créer le template principal
 
 <head>
     <meta charset="utf-8">
-    <title>{{ $title ?? env('APP_NAME') }}</title>
+    <title>{{ $title ?? Config::get('app.name') }}</title>
     {{-- <meta name="description" content="{{ $description }}">--}}
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <meta property="og:url" content="{{ url()->full() }}" />
-    <meta property="og:title" content="{{ $title ?? env('APP_NAME') }}" />
-    <meta property="og:site_name" content="{{ env('APP_NAME') }}" />
+    <meta property="og:title" content="{{ $title ?? Config::get('app.name') }}" />
+    <meta property="og:site_name" content="{{ Config::get('app.name') }}" />
     {{-- <meta property="og:description" content="{{ $description }}" />--}}
     <meta property="og:type" content="website" />
-    {{-- <meta property="og:image" content="{{ og_image }}" /> --}}
+    {{-- <meta property="og:image" content="{{ $og_image }}" /> --}}
 
     <meta property="og:locale" content="fr-FR" />
     <meta http-equiv="content-language" content="fr">
