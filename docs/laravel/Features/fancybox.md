@@ -28,3 +28,7 @@ import { Fancybox } from "@fancyapps/ui";
 Fancybox.bind();
 // highlight-end
 ```
+
+:::note 
+Noter que jquery doit-être installer pour que Fancybox fonctionne correctement, tutoriel ["Installer Jquery"](jquery.md) sur laravel
+:::

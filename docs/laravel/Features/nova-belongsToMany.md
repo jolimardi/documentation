@@ -4,21 +4,28 @@ title: Nova/BelongsToManyField
 
 ### benjacho/belongs-to-many-field
 
-```php
+```bash
+composer require benjacho/belongs-to-many-field
+```
+
+### Utilisation commune 
+
+Exemple : 
+
+```php title='app/Nova/Ma-resource.php'
 use Benjacho\BelongsToManyField\BelongsToManyField;
 
-public function fields(Request $request){
-    BelongsToManyField::make('Role Label', 'roles', 'App\Nova\Role')->optionsLabel('full_role_name'),
+...
+class MaResource extends Resource { 
+    ...
+    public function fields(NovaRequest $request) {
+        ...
+        BelongsToManyField::make('Role Label', 'roles', 'App\Nova\Role')->optionsLabel('full_role_name'),
+        ...
+    }
+    ...
 }
 ```
 
 Plus d'information sur la documentation du package : https://github.com/Benjacho/belongs-to-many-field-nova
 
-## Composer command 
-
-##### benjacho/belongs-to-many-field
-
-
-```bash
-composer require benjacho/belongs-to-many-field
-```
