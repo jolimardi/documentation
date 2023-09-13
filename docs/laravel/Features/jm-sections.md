@@ -4,20 +4,17 @@ title: Jolimardi/Laravel-sections
 
 ### Sections
 
+Exécuter les commandes suivantes : 
+
 ```bash
-composer require jolimardi/laravel-mysections:dev-main
+php artisan vendor:publish --provider="JoliMardi\MySections\MySectionsServiceProvider"
+composer require jolimardi/laravel-sections:dev-main
+php artisan migrate
 ```
+
 > `:dev-main` permet d'outre-passer la vérification de stabilité pour le moment.
 
 - Il est déjà possible d'utiliser le composant `<x-section><x-section />` ici.
-
-Accéder à la création de sections, éxécuter :
-
-```bash title="console"
-php artisan vendor:publish --provider="JoliMardi\MySections\MySectionsServiceProvider"
-
-php artisan migrate
-```
 
 Importer le css des sections :
 
@@ -48,12 +45,20 @@ class IndexController extends Controller {
 }
 ```
 
-Puis utiliser la directive dans une vue : 
 
-```php title="resources/view/homepage.blade.php"
-<x-section>
-    @mySection($sections, 'home.apropos')
-</x-section>
+Il est maintenant possible d'utiliser le composant `<x-section><x-section />`.
+
+### Importer le CSS
+```css title="resources/css/app.css"
+@import "../../public/vendor/mysections/sections.css";
+```
+
+### Utilisation dans les Views
+
+```php 
+<body>
+    @mySection($all_sections_from_db, $key_of_the_section_to_display)
+</body>
 ```
 
 ### Option vidéo
@@ -98,12 +103,24 @@ Sinon, il faut ajouter le composant youtube-inline.blade.php dans `resources/vie
 
 ## Ajouter une section dans Nova
 
-### Installer les helpers de Nova utilisé par ce package
+### Package required par le packages 
+
+Par défaut le package utilise de sous packages pour fonctionner, voici les commandes pour les installer si nécessaire, à éxécuter avant l'installation du package de préférence.
 
 1. m-a-k-o/youtube-field
 
 ```bash title='console'
 composer require m-a-k-o/youtube-field
+```
+
+2. ebess/advanced-nova-media-library
+
+```bash title='console'
+composer require ebess/advanced-nova-media-library
+php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="migrations"
+php artisan migrate
+php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="config"
+php artisan vendor:publish --tag=nova-media-library
 ```
 
 Plus d'information sur la documentation du package : https://github.com/jolimardi/laravel-sections
