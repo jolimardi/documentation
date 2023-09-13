@@ -20,6 +20,14 @@ Les classes CSS suivantes sont utilisées pour configurer les propriétés flex.
   <div>Élément 3</div>
 </div>
 ```
+```css title='CSS'
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+```
+
 
 ## Direction des éléments flex
 
@@ -47,6 +55,23 @@ Les classes CSS suivantes sont utilisées pour configurer les propriétés flex.
     <div class="flex flex-row-reverse">Élément en flex row reverse</div>
     <div class="flex flex-column">Élément en flex column</div>
     <div class="flex flex-column-reverse">Élément en flex column reverse</div>
+```
+```css title='CSS'
+.flex {
+  display: flex !important;
+}
+.flex-row-reverse {
+    flex-direction: row-reverse;
+}
+.flex-row {
+    flex-direction: row;
+}
+.flex-column-reverse {
+    flex-direction: column-reverse;
+}
+.flex-column {
+    flex-direction: column;
+}
 ```
 
 ## Alignement et justification des éléments flex
@@ -88,6 +113,32 @@ Les classes CSS suivantes sont utilisées pour configurer les propriétés flex.
         <div>Étiré</div>
     </div>
 ```
+```css title='CSS'
+.justify-center {
+    justify-content: center;
+}
+.justify-start {
+    justify-content: start;
+}
+.justify-end {
+    justify-content: flex-end;
+}
+.justify-stretch {
+    justify-content: stretch;
+}
+.align-center {
+    align-items: center;
+}
+.align-start {
+    align-items: start;
+}
+.align-end {
+    align-items: flex-end;
+}
+.stretch, .align-stretch {
+    align-items: stretch;
+}
+```
 
 ## Affichage
 
@@ -105,6 +156,20 @@ Les classes CSS suivantes sont utilisées pour configurer les propriétés flex.
     <div class="inline-block">Élément inline-block</div>
     <div class="inline-flex">Élément inline-flex</div>
     <div class="block">Élément block</div>
+```
+```css title='CSS'
+.inline {
+    display: inline !important;
+}
+.inline-block {
+    display: inline-block !important;
+}
+.inline-flex {
+    display: inline-flex !important;
+}
+.block {
+    display: block !important;
+}
 ```
 
 ## Propriétés supplémentaires
@@ -139,6 +204,20 @@ Les classes CSS suivantes sont utilisées pour configurer les propriétés flex.
     <div class="grow">Élément grow</div>
     <div class="wrap">Élément wrap</div>
     <div class="gap">Élément gap</div>
+```
+```css title='CSS'
+.flex-fill {
+    flex: 1 1 auto !important;
+}
+.grow, .flex-grow {
+    flex-grow: 1;
+}
+.wrap, .flex-wrap {
+    flex-wrap: wrap;
+}
+.gap, .flex-gap {
+    gap: 2px 16px;
+}
 ```
 
 ### Liste d'alternatives
