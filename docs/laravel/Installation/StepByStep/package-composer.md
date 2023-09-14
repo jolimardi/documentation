@@ -111,7 +111,7 @@ Il est maintenant possible d'utiliser le composant `<x-section><x-section />`.
 
 ### Importer le CSS
 ```css title="resources/css/app.css"
-@import "../../public/vendor/mysections/sections.css";
+@import "../../vendor/jolimardi/laravel-sections/dist/sections.css";
 ```
 
 ### Utilisation dans les Views

@@ -19,7 +19,7 @@ php artisan migrate
 Importer le css des sections :
 
 ```css title="resources/css/app.css"
-@import "../../public/vendor/mysections/sections.css";
+@import "../../vendor/jolimardi/laravel-sections/dist/sections.css";
 ```
 
 Envoyer les identifiants des sections à la vue : 
