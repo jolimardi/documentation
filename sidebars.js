@@ -118,6 +118,7 @@ module.exports = {
         'laravel/Features/jm-menu',
         'laravel/Features/jm-sections',
         'laravel/Features/jm-flash',
+        'laravel/Features/jm-metas',
         'laravel/Features/notiflix',
         'laravel/Features/fancybox',
         'laravel/Features/blade-icons',
