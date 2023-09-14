@@ -169,6 +169,42 @@ Sinon, il faut ajouter le composant youtube-inline.blade.php dans `resources/vie
 
 Se connecter à Nova pour ajouter une section. La clé est importante pour afficher la section (c'est son *machine name*). Il est possible d'ajouter des types de section (via Nova), puis de créer le nouveau template dans `/ressources/views/components/vendor/laravel-sections/ma-nouvelle-section.blade.php`
 
+## Metas JoliMardi
+
+```bash
+composer require jolimardi/laravel-metas
+php artisan vendor:publish --provider="JoliMardi\Metas\MetasServiceProvider"
+```
+
+Ajouter les variables globale : 
+
+```php title="app/Http/Controller/Controller.php"
+<?php
+
+namespace App\Http\Controllers;
+
+// highlight-start
+use JoliMardi\Metas\Services\MetasService;
+// highlight-end
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\View;
+
+class Controller extends BaseController {
+    use AuthorizesRequests, ValidatesRequests;
+
+    public function __construct() {
+        // highlight-start
+        // Chargement des variables globales utilisables dans toutes les vues, et overridables dans les controllers
+        View::share('title', MetasService::getTitle());
+        View::share('description', MetasService::getDescription());
+        View::share('og_image', '/img/example.jpg');
+        // highlight-end
+    }
+}
+```
+
 ## Flash
 
 ```bash
