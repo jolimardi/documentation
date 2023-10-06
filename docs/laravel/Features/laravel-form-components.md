@@ -7,7 +7,7 @@ title: Ajouter des form-component
 ```bash title="console"
 composer require protonemedia/laravel-form-components
 
-php artisan vendor:publish --provider="ProtoneMedia\LaravelFormComponents\ServiceProvider" --tag="config"
+php artisan vendor:publish --provider="ProtoneMedia\LaravelFormComponents\Support\ServiceProvider"
 ```
 
 ## Setup le package

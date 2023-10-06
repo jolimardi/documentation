@@ -220,7 +220,7 @@ use GuzzleHttp\Client;
 use JoliMardi\Flash\Flash;
 use GuzzleHttp\Exception\RequestException;
 
-class SendinBlueService {
+class SendInBlueService {
     protected $client;
 
     public function __construct(Client $client) {
