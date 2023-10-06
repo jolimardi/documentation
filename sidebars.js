@@ -126,6 +126,7 @@ module.exports = {
         'laravel/Features/create-form',
         'laravel/Features/add-ckeditor',
         'laravel/Features/install-from-repo',
+        'laravel/Features/nova-youtube-field',
       ],
     }
   ],
