@@ -5,7 +5,7 @@ title: Routes et Base Controller
 
 ## Ajouter le namespace pour charger automatiquement les controllers
 
-```php title="/app/Services/RouteServicesProvider.php"
+```php title="/app/Providers/RouteServicesProvider.php"
 ...
 class RouteServiceProvider extends ServiceProvider {...
     public function boot(): void {
@@ -32,19 +32,20 @@ Ajouter `->namespace('App\Http\Controllers')` est nécessaire pour que syntaxe c
 
 namespace App\Http\Controllers;
 
-//use App\Services\MetasService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as LaravelController;
 use Illuminate\Support\Facades\View;
+use JoliMardi\Metas\Services\MetasService;
 
 class BaseController extends LaravelController {
     use AuthorizesRequests, ValidatesRequests;
 
     public function __construct() {
         // Chargement des variables globales utilisables dans toutes les vues, et overridables dans les controllers
-        //View::share('title', MetasService::getTitle());
-        //View::share('description', MetasService::getDescription());
+        View::share('title', MetasService::getTitle());
+        View::share('description', MetasService::getDescription());
+        View::share('og_image', '/img/example.jpg');
     }
 }
 ```
@@ -149,32 +150,44 @@ Route::get('mon-slug', 'MonController@mon_action')->name('mon_nom_de route'); //
 Exemple plus complet, à adapter selon le projet :
 
 ```php title="routes/web.php"
-<?php
-
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Config;
 
 /* ----------    Index Controller   ---------------------- */
-Route::get('/', 'IndexController@home')->name('home');
-Route::get('/contact', 'IndexController@contact')->name('contact');
-Route::post('/contact', 'IndexController@send')->name('contact.send');
 
-Route::get('comment-ca-marche', 'IndexController@comment_ca_marche')->name('comment-ca-marche');
-Route::get('team', 'IndexController@team')->name('team');
-Route::get('mentions-legales', 'IndexController@mentions_legales')->name('mentions-legales');
+Route::name('home')->get('/', 'IndexController@home');
+Route::name('contact')->get('contact', 'IndexController@contact');
+Route::name('contact.send')->post('contact', 'IndexController@send');
 
-
-/* ----------    Artistes avec un group de routes   ---------------------- */
-Route::controller(ArtistController::class) // Nom du controlleur
-    ->group(function () {
-        Route::get('artistes', 'list')->name('artists.list');
-        Route::get('artistes/{slug}', 'view')->name('artists.view');
-        Route::get('artistes-{category}', 'category')->name('artists.category');
-    });
+Route::name('team')->get('team', 'IndexController@team');
+Route::name('comment-ca-marche')->get('comment-ca-marche', 'IndexController@comment_ca_marche');
+Route::name('mentions-legales')->get('mentions-legales', 'IndexController@mentions_legales');
 
 
-/* ----------    Admin avec middleware Auth (Doc @TODO)   ---------------------- */
-$admin_prefix = env('ADMIN_SLUG', 'admin');
+/* ----------    Artistes   ---------------------- */
+
+Route::name('artists')->get('artistes', 'ArtistController@list');
+Route::name('artists.view')->get('artistes/{slug}', 'ArtistController@view');
+
+// Exemple de paramètre "capturé" dans l'url
+Route::name('artists.style')->get('artistes-{style}', 'ArtistController@style');
+
+
+
+/* ----------    Articles   ---------------------- */
+
+// Conseils
+Route::name('posts')->get('conseils', 'PostController@list');
+Route::name('posts.view')->get('conseils/{slug}', 'PostController@view');
+
+
+
+/* ----------    Admin   ---------------------- */
+
+$admin_prefix = Config::get('app.admin_slug', 'admin');
 Route::middleware(['auth'])
     ->prefix($admin_prefix)
     ->controller(AdminController::class)
@@ -183,21 +196,7 @@ Route::middleware(['auth'])
         Route::post('/', 'dashboard')->name('admin.filterArtists');
         Route::get('/logout', 'logout')->name('admin.logout');
     });
-Route::get($admin_prefix . '/login', 'AdminController@login')->name('admin.login');
-Route::post($admin_prefix . '/check-login', 'AdminController@checkLogin')->name('admin.check-login');
-
-
-/* ----------    Articles   ---------------------- */
-Route::controller(ArticlesController::class)
-    ->group(function () {
-        // Global
-        Route::get('articles', 'articles')->name('articles');
-        // Post
-        Route::get('conseils', 'list_posts')->name('posts.list');
-        Route::get('conseils/{slug}', 'view_post')->name('posts.view');
-        // Realisation
-        Route::get('realisations', 'list_realisations')->name('realisations.list');
-        Route::get('realisations/{slug}', 'view_realisation')->name('realisations.view');
-    });
+Route::name('admin.login')->get($admin_prefix . '/login', 'AdminController@login');
+Route::name('admin.check-login')->post($admin_prefix . '/check-login', 'AdminController@checkLogin');
 
 ```

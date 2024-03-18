@@ -1,5 +1,5 @@
 ---
-title: NovaYoutubeField
+title: Nova Video Field
 --- 
 
 Ce package permet d'ajouter un nouveau field aux resource nova, il permet de récupérer 
@@ -7,14 +7,8 @@ Ce package permet d'ajouter un nouveau field aux resource nova, il permet de ré
 ## Installation 
 
 ```bash title='console'
-composer require jolimardi/nova-youtube-field
+composer require jolimardi/nova-video-field
 ```
-
-:::warning
-@TODO Ajouter le package a packagist
-
-En attendant récupérer le dossier NovaYoutubeField du dépot jolimardi/k-music-unused et l'ajouter au projet puis éxécuter "composer dump-autoload"
-:::
 
 Ajouter vos informations secrète à votre application dans `config/services` et dans votre `.env`: 
 
@@ -44,7 +38,7 @@ public function fields(NovaRequest $request) {
     return [
         ...
 
-        NovaYoutubeField::make('Video', 'video'),
+        NovaVideoField::make('Video', 'video'),
 
         ...
     ]
@@ -53,22 +47,23 @@ public function fields(NovaRequest $request) {
 ```
 
 :::info
-Par défaut, le package enregistrera toujours dans la colonne vidéo de la table du model.
-
-Attention également à ce que le provider soit bien enregistrer, pour éviter tout problème on peut éxécuter la commande `composer dump-autoload`
+Un JSON sera enregistré dans le field "video" du Model
 :::
 
-## Customisation 
+## Vidéos multiples ou limiter à une seule vidéo 
 
-- Changer le champ de la table dans lequel est sauvegarder les données : 
+- Ajouter `->mulitple()` au field Nova pour autoriser plusieurs vidéos dans le même champ
 
 ```php title='app/Nova/MaResource.php'
 public function fields(NovaRequest $request) {
     return [
         ...
 
-        NovaYoutubeField::make('MonLabel')
-            ->setModelAttribute('autreNomDAttribut'),
+        // UNE SEULE vidéo autorisée
+        NovaVideoField::make('Vidéo du header', 'header_video')->nullable()->hideFromIndex(),
+
+        // Possibilité de mettre PLUSIEURS vidéos avec ->multiple()
+        NovaVideoField::make('Mes viédos', 'videos')->multiple()->nullable()->hideFromIndex(),
 
         ...
     ]

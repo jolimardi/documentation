@@ -44,6 +44,18 @@ window.$ = $;
 // npm install @fancyapps/ui --save-dev
 // pour le css : @import "../../node_modules/@fancyapps/ui/dist/fancybox/fancybox.css";
 import { Fancybox } from "@fancyapps/ui";
+import { fr } from "@fancyapps/ui/dist/fancybox/l10n/fr.esm";
+
+window.Fancybox = Fancybox;
+
+Fancybox.defaults.l10n = fr;
+Fancybox.defaults.width = 1600;
+Fancybox.Plugins.Toolbar.defaults.display = {
+    left: ["infobar"],
+    middle: [],
+    right: ["close"],
+};
+
 Fancybox.bind();
 // highlight-end
 ```

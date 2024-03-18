@@ -23,15 +23,28 @@ class ArticleController extends Controller {
 
 ### Afficher la pagination dans la vue
 
+:::info
+Attention, pour avoir le nombre de résultats, il faut utiliser `$post->total()`
+:::
+
 ```php title='resources/views/posts/list.blade.php'
+// Nombre total de résultat (ne pas utiliser ->count())
+{{ $posts->total() }} {{ Str::plural("Résultat", $posts->total()) }}
+
 @foreach ($posts as $post)
     ...
 @endforeach
 
 // highlight-start
-{{ $posts->links() }}
+@if(method_exists($posts, 'links'))
+    {{ $posts->withQueryString()->links() }}
+@endif
 // highlight-end
 ```
+
+:::info
+`->withQueryString()` permet d'ajouter les params get pour garder les filtres d'une page à l'autre
+:::
 
 ### Utiliser le template de pagination de Joli Mardi
 
@@ -67,7 +80,7 @@ class AppServiceProvider extends ServiceProvider
 @if ($paginator->hasPages())
 
     <?php
-    $pagination_base_url = $paginator->getOptions()['path'];
+    $pagination_base_url = $paginator->path();
     $current = $paginator->currentPage();
     $last_page = $total = $paginator->lastPage();
     ?>

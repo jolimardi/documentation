@@ -113,6 +113,60 @@ et en ajoutant dans le `.env` :
 NOVA_AUTHORIZED_EMAILS='mon-email@gmail.com, deuxieme-email@gmail.com'
 ```
 
+## Ajouter le custom CSS
+
+### Créer le fichier css dans /public
+```css title="/public/nova_overrides.css"
+
+/* Multiselect - BelongsToMany plugin (add borders) */
+
+.multiselect{
+    border-color: rgba(var(--colors-gray-300));
+    border-width: 1px;
+    border-radius: 4px;
+}
+
+
+/* ---------   CKEditor content ------------ */
+.ck.ck-content h1{
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 1.2;
+}
+.ck.ck-content h2{
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.3;
+}
+.ck.ck-content h3{
+    font-weight: 700;
+    font-size: 21px;
+    line-height: 1.5;
+}
+.ck.ck-content h4{
+    font-weight: 700;
+    font-size: 14px;
+}
+body .ck.ck-reset.ck-editor .ck-editor__editable_inline *{
+    font-family: Nunito Sans, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    color: #222;
+}
+body .ck.ck-reset.ck-editor .ck-editor__editable_inline blockquote, body .ck.ck-reset.ck-editor .ck-editor__editable_inline li, body .ck.ck-reset.ck-editor .ck-editor__editable_inline ol, body .ck.ck-reset.ck-editor .ck-editor__editable_inline p, body .ck.ck-reset.ck-editor .ck-editor__editable_inline ul{
+    font-size: 14px !important;
+}
+```
+
+### Cherger le css au boot de Nova
+```php title="/app/Service/NovaServiceProvider.php"
+public function boot() {
+    parent::boot();
+
+    // Add custom CSS
+    Nova::style('nova_overrides', public_path('nova_overrides.css'));
+}
+```
+
+
 **Pour plus de détails sur Laravel nova, retrouvez la documentation officielle ici : https://nova.laravel.com/docs/4.0/installation.html**
 
 

@@ -13,6 +13,7 @@ cd nom-du-site
 composer update
 npm install
 php artisan key:generate
+php artisan storage:link
 ```
 
 ### Configuration du .env
@@ -37,6 +38,9 @@ APP_URL=http://mon-site.local
 # SENDINBLUE_KEY="xkeysib-A_COMPLETER"
 # SENDINBLUE_FROM_ADDRESS="contact@mon-site.com"
 
+# YOUTUBE_API_KEY="{youtube_api_key}"
+# VIMEO_TOKEN="{vimeo_token}"
+
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -58,6 +62,40 @@ DB_PASSWORD="motdepasseDB"
 
 # FILESYSTEM_DISK=local
 
+```
+
+## Ajout de quelques lignes de config
+```php title="/app/config/app.php"
+<?php
+
+use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\ServiceProvider;
+
+return [
+
+    /* -------  Config commune à l'environnement de dev et de prod, non sécurisée (pas de mots de passes ou clés d'api) ------- */
+
+    'phone' => [
+        'formatted' => '06 06 06 06 06',
+        'number' => '0606060606',
+    ],
+    'email' => 'monsite@gmail.com',
+    'instagram_link' => 'https://www.instagram.com/monsite/',
+    'facebook_link' => 'https://www.facebook.com/monsite',
+    'linkedin_link' => 'https://www.linkedin.com/in/monsite/',
+    'youtube_link' => 'https://www.linkedin.com/in/monsite/',
+    'name' => 'Title de mon site',
+    'send_from' => [
+        'email' => 'contact@monsite.com',
+        'name' => 'Nom expéditeur'
+    ],
+    'send_to' => [
+        'email' => (ENV('APP_ENV') == 'local' ? 'romain.cherot@free.fr' : 'contact@monsite.com'),
+        'name' => 'Recipient name'
+    ],
+    'admin_slug' => ENV('ADMIN_SLUG', 'brain'),
+
+    [...]
 ```
 
 ## Démarrage du serveur local

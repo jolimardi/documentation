@@ -29,6 +29,12 @@ return [
     // Global Default Classes - applied to all icons by default
     'class' => 'icon',
 
+    // Evite les icones énormes tant que le css n'est pas chargé
+    'attributes' => [
+        'width' => 24,
+        'height' => 24,
+    ],
+
     'components' => [
         // Disable the component, only use directive @svg(...) -> perf boost
         'disabled' => true,
@@ -60,7 +66,7 @@ return [
 ## CSS JoliMardi
 
 ```bash
-cd ressources/css
+cd resources/css
 git clone https://github.com/jolimardi/jolimardi-css
 ```
 Puis importer le CSS dans le projet :
@@ -95,18 +101,24 @@ Ajouter le component `<x-menu/>` dans un template blade, là où vous voulez aff
 Modifier `config/menu.yml` pour ajouter des routes au composant.
 
 ## Sections JoliMardi
-
+:::warning
+Il faut d'abord installer Nova
+:::
 ```bash
-composer require ebess/advanced-nova-media-library
-php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="migrations"
+composer require ebess/advanced-nova-media-library:^4.1.6
+php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="medialibrary-migrations"
 php artisan migrate
-php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="medialibrary-config"
 php artisan vendor:publish --tag=nova-media-library
 
-php artisan vendor:publish --provider="JoliMardi\MySections\MySectionsServiceProvider"
 composer require jolimardi/laravel-sections:dev-main
+php artisan vendor:publish --provider="JoliMardi\MySections\MySectionsServiceProvider"
 php artisan migrate
 ```
+:::info
+S'il y a un problème de "minimum stability", modifier composer.json en modifiant `"minimum-stability": "dev",`
+:::
+
 Il est maintenant possible d'utiliser le composant `<x-section><x-section />`.
 
 ### Importer le CSS
@@ -183,25 +195,26 @@ Ajouter les variables globale :
 
 namespace App\Http\Controllers;
 
-// highlight-start
-use JoliMardi\Metas\Services\MetasService;
-// highlight-end
+
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+// highlight-start
+use JoliMardi\Metas\Services\MetasService;
 use Illuminate\Support\Facades\View;
+// highlight-end
 
 class Controller extends BaseController {
     use AuthorizesRequests, ValidatesRequests;
 
+    // highlight-start
     public function __construct() {
-        // highlight-start
         // Chargement des variables globales utilisables dans toutes les vues, et overridables dans les controllers
         View::share('title', MetasService::getTitle());
         View::share('description', MetasService::getDescription());
         View::share('og_image', '/img/example.jpg');
-        // highlight-end
     }
+    // highlight-end
 }
 ```
 
