@@ -12,7 +12,8 @@
       "Bash([ -s \"$NVM_DIR/nvm.sh\" ])",
       "Bash(. \"$NVM_DIR/nvm.sh\")",
       "Bash(nvm use:*)",
-      "Bash(npm run clear:*)"
+      "Bash(npm run clear:*)",
+      "Bash(ls:*)"
     ]
   }
 }
