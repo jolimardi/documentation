@@ -96,20 +96,19 @@ module.exports = {
         },
         {
             type: 'category',
-            label: 'Step by step',
+            label: '1. Installation Step by Step',
             items: [
-                'laravel/Installation/StepByStep/laravel',
-                'laravel/Installation/StepByStep/laravel-nova',
-                'laravel/Installation/StepByStep/package-composer',
-                'laravel/Installation/StepByStep/layout-principal',
-                'laravel/Installation/StepByStep/vite-app',
-                'laravel/Installation/StepByStep/route-controller',
-                'laravel/Installation/StepByStep/jquery-et-plugins',
+                'laravel/Installation/StepByStep/01-laravel',
+                'laravel/Installation/StepByStep/02-packages-composer',
+                'laravel/Installation/StepByStep/03-vite-app',
+                'laravel/Installation/StepByStep/04-layout-principal',
+                'laravel/Installation/StepByStep/05-routes-controllers',
+                'laravel/Installation/StepByStep/06-jquery-plugins',
             ],
         },
         {
             type: 'category',
-            label: 'Features',
+            label: '2. Configuration Détaillée',
             items: [
                 'laravel/Features/web-php',
                 'laravel/Features/jquery',
@@ -125,6 +124,13 @@ module.exports = {
                 'laravel/Features/create-form',
                 'laravel/Features/pagination',
                 'laravel/Features/install-from-repo',
+            ],
+        },
+        {
+            type: 'category',
+            label: '3. Déploiement Forge',
+            items: [
+                'laravel/Deployment/intro',
             ],
         },
         {
