@@ -10,7 +10,7 @@ Guide d'installation des librairies JS qui peuvent servir.
 ```bash
 npm install jquery --save-dev
 ```
-```js title="/ressources/js/bootstrap.js"
+```js title="/resources/js/bootstrap.js"
 import axios from 'axios';
 window.axios = axios;
 
@@ -34,7 +34,7 @@ npm install @fancyapps/ui --save-dev
 @import "../../node_modules/@fancyapps/ui/dist/fancybox/fancybox.css";
 ```
 
-```js title="/ressources/js/bootstrap.js"
+```js title="/resources/js/bootstrap.js"
 /* -------   jQuery   ------- */
 import $ from 'jquery';
 window.$ = $;
@@ -67,7 +67,7 @@ Pas besoin de CSS, il est inclus dans le js (All In One).
 npm install notiflix --save-dev
 ```
 
-```js title="/ressources/js/bootstrap.js"
+```js title="/resources/js/bootstrap.js"
 /* -------   Notiflix   ------- */
 // npm install notiflix --save-dev
 // pour le css : pas besoin, c'est du all in one
@@ -78,7 +78,7 @@ window.Notify = Notify;
 
 ### Utilisation Notiflix pour les flash messages :
 
-```html title="/ressources/views/vendor/flash-messages/message.blade.php"
+```html title="/resources/views/vendor/flash-messages/message.blade.php"
 
 @props([
     'types_notify_mapping' => [

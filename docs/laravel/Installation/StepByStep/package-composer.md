@@ -8,7 +8,7 @@ title: Packages Composer
 composer require blade-ui-kit/blade-icons
 composer require codeat3/blade-coolicons
 # Créer le dossier qui contiendra les icones "custom" pour le projet
-mkdir ressources/icons
+mkdir resources/icons
 
 php artisan vendor:publish --tag=blade-icons
 php artisan view:clear
@@ -31,8 +31,8 @@ return [
 
     // Evite les icones énormes tant que le css n'est pas chargé
     'attributes' => [
-        'width' => 24,
-        'height' => 24,
+        'width' => 20,
+        'height' => 20,
     ],
 
     'components' => [
@@ -45,7 +45,7 @@ return [
 ```php title="example.blade.php"
 <body>
 
-    // Pour afficher l'icone custom du projet /ressources/icons/icon-perso.svg
+    // Pour afficher l'icone custom du projet /resources/icons/icon-perso.svg
     @svg('icon-perso')
 
     // Pour afficher l'icone Coolicons Hamburger
@@ -105,7 +105,7 @@ Modifier `config/menu.yml` pour ajouter des routes au composant.
 Il faut d'abord installer Nova
 :::
 ```bash
-composer require ebess/advanced-nova-media-library:^4.1.6
+composer require ebess/advanced-nova-media-library:^4.2
 php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="medialibrary-migrations"
 php artisan migrate
 php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="medialibrary-config"
@@ -179,7 +179,7 @@ Sinon, il faut ajouter le composant youtube-inline.blade.php dans `resources/vie
 
 **Prérequis : avoir installé Laravel Nova (voir plus loin)**
 
-Se connecter à Nova pour ajouter une section. La clé est importante pour afficher la section (c'est son *machine name*). Il est possible d'ajouter des types de section (via Nova), puis de créer le nouveau template dans `/ressources/views/components/vendor/laravel-sections/ma-nouvelle-section.blade.php`
+Se connecter à Nova pour ajouter une section. La clé est importante pour afficher la section (c'est son *machine name*). Il est possible d'ajouter des types de section (via Nova), puis de créer le nouveau template dans `/resources/views/components/vendor/laravel-sections/ma-nouvelle-section.blade.php`
 
 ## Metas JoliMardi
 
@@ -226,24 +226,28 @@ php artisan vendor:publish --provider="JoliMardi\Flash\FlashServiceProvider" --t
 ```
 > `:dev-main` permet d'outre-passer la vérification de stabilité pour le moment.
 
-Ajouter l'alias personnalisé dans `config/app.php` -> `aliases`:
+Ajouter l'alias personnalisé dans `app/Providers/AppServiceProvider.php` -> `register()`:
 
-```php title="/config/app.php"
+```php title="/app/Providers/AppServiceProvider.php"
 <?php
 
-use Illuminate\Support\Facades\Facade;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
-return [
-    ...
-    // Tout en bas du fichier
+class AppServiceProvider extends ServiceProvider {
+    /**
+     * Register any application services.
+     */
+    public function register(): void {
 
-    'aliases' => Facade::defaultAliases()->merge([
         //highlight-start
-        'MyFlash' => JoliMardi\Flash\Flash::class,
+        // Get the AliasLoader instance
+        $loader = AliasLoader::getInstance();
+
+        // Add your aliases
+        $loader->alias('MyFlash', \JoliMardi\Flash\Flash::class);
         //highlight-end
-    ])->toArray(),
-];
+    }
 ```
 
 Utiliser dans un controlleur `Flash::success('Ceci est un message de succès');`.

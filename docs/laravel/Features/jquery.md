@@ -10,7 +10,7 @@ npm install jquery --save-dev
 
 Puis ajouter dans le fichier ci-dessous :
 
-```js title="ressources/js/bootstrap.js"
+```js title="resources/js/bootstrap.js"
 import axios from 'axios';
 window.axios = axios;
 

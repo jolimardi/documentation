@@ -5,20 +5,43 @@ title: Routes et Base Controller
 
 ## Ajouter le namespace pour charger automatiquement les controllers
 
-```php title="/app/Providers/RouteServicesProvider.php"
-...
-class RouteServiceProvider extends ServiceProvider {...
-    public function boot(): void {
 
-        $this->routes(function () {
+```php title="/routes/web.php"
+...
+return Application::configure(basePath: dirname(__DIR__))
+
+    /* -----------    ATTENTION : C'est là qu'on ajoute le namespace pour les Controllers avec la syntaxe Controller@acion dans web.php    ----------- */
+    //highlight-start
+    ->withRouting(
+        commands: __DIR__ . '/../routes/console.php',
+        using: function(){
             Route::middleware('web')
-                // highlight-start
                 ->namespace('App\Http\Controllers')
-                // highlight-end
                 ->group(base_path('routes/web.php'));
-        });
-    }
-}
+        },
+    )
+    //highlight-end
+
+    // On peut aussi ajouter les alias des Middlewares
+    ->withMiddleware(function (Middleware $middleware) {
+
+        $middleware->alias([
+            // Perso pour savoir si on est sur le front
+            'is_front' => \App\Http\Middleware\IsFront::class
+        ]);
+
+    })
+```
+```php title="/routes/web.php"
+<?php
+//highlight-start
+namespace App\Http\Controllers;
+//highlight-end
+
+use Illuminate\Support\Facades\Route;
+
+...
+
 ```
 
 :::info 
@@ -51,7 +74,7 @@ class BaseController extends LaravelController {
 ```
 
 :::info
-Penser à créer les vues correspondantes à chaque action, dans `/ressources/views/mapage.blade.php` par exemple, ou dans un sous-dossier avec la syntaxe `return view('pages-editos.mapage')` pour la vue située dans `/ressources/views/pages-editos/mapage.blade.php`;
+Penser à créer les vues correspondantes à chaque action, dans `/resources/views/mapage.blade.php` par exemple, ou dans un sous-dossier avec la syntaxe `return view('pages-editos.mapage')` pour la vue située dans `/resources/views/pages-editos/mapage.blade.php`;
 :::
 
 ```php title="/app/Http/Controllers/IndexController.php"

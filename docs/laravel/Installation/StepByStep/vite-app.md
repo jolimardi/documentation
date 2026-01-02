@@ -27,7 +27,7 @@ import autoprefixer from 'autoprefixer';
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'], // Ajouter ici les ressources à compiler
+            input: ['resources/css/app.css', 'resources/js/app.js'], // Ajouter ici les resources à compiler
             refresh: true,
         }),
     ],
@@ -46,11 +46,11 @@ export default defineConfig({
 
 ## Chargement des assets dans le HTML avec Vite.js
 
-Il faut ensuite charger ces fichiers compilés dans le Layout blade principal `/ressources/views/layout.blade.php` grace à la directive spéciale `@vite`.
+Il faut ensuite charger ces fichiers compilés dans le Layout blade principal `/resources/views/layout.blade.php` grace à la directive spéciale `@vite`.
 
 Par exemple, pour les deux fichiers présents dans le `input` de `vite.config.js` ci-dessus, on peut les charger dans le `<head>` avec `@vite('resources/css/app.css')` et `@vite('resources/css/app.js')`. Ca remplace le `<style src=...></style>` pour permettre le live reload pendant le dev, le changement de nom à chaque nouveau build (évite d'avoir de vieux fichiers obsolètes en cache) etc.
 
-```html title="/ressources/views/layout.blade.php"
+```html title="/resources/views/layout.blade.php"
 <head>
     <meta charset="utf-8">
     <title>{{ $title ?? env('APP_NAME') }}</title>
@@ -86,7 +86,7 @@ Pour ajouter de nouveaux fichiers CSS au projet projet, vous pouvez soit les ajo
 
 
 # JS commun à tous les sites JoliMardi
-```js title="/ressources/js/app.js"
+```js title="/resources/js/app.js"
 import './bootstrap';
 
 /* ---------------    ci-dessous : JS commun à tous les sites, à déplacer   ---------------------- */

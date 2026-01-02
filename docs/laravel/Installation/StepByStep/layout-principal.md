@@ -4,7 +4,7 @@ title: Layout Principal
 
 ## Création du component Blade Layout
 
-```php title="/app/Views/Components/Layout.php"
+```php title="/app/View/Components/Layout.php"
 <?php
 
 namespace App\View\Components;
@@ -31,7 +31,7 @@ class layout extends Component {
 
 ```
 Puis créer le template principal
-```php title="/ressources/views/layout.blade.php"
+```php title="/resources/views/layout.blade.php"
 <html lang="fr">
 
 <head>
@@ -151,7 +151,7 @@ Quelques lignes sont commentées, elles serviront plus tard, mais déclencheraie
 Il faut mettre l'ensemble du contenu des vues (html, js etc.) entre les balises <x-layout></x-layout>
 :::
 
-```html title="/ressources/views/home.blade.php"
+```html title="/resources/views/home.blade.php"
 <x-layout>
     <h1>Hello World</h1>
 </x-layout>
