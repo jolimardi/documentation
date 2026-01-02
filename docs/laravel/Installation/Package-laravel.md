@@ -25,14 +25,6 @@ Retrouvez comment utilisez chaque packages [sur la page d'utilisation](http://lo
 
 # Ajout de Packages
 
-### benjacho/belongs-to-many-field
-
-
-```bash
-composer require benjacho/belongs-to-many-field
-```
-
-
 ### blade-ui-kit/blade-icons
 
 
@@ -46,22 +38,6 @@ composer require blade-ui-kit/blade-icons
 
 ```bash
 composer require codeat3/blade-coolicons
-```
-
-
-### coderello/laravel-nova-lang
-
-
-```bash
-composer require coderello/laravel-nova-lang
-```
-
-
-### ebess/advanced-nova-media-library
-
-
-```bash
-composer require ebess/advanced-nova-media-library
 ```
 
 
@@ -88,13 +64,6 @@ composer require jolimardi/laravel-menu
 composer require laravel/framework
 ```
 
-### laravel/nova
-
-
-```bash
-composer require laravel/nova
-```
-
 ### laravel/sanctum
 
 
@@ -108,21 +77,7 @@ composer require laravel/sanctum
 ```bash
 composer require laravel/tinker
 ```
- 
-### m-a-k-o/youtube-field
 
-
-```bash
-composer require m-a-k-o/youtube-field
-```
- 
-### mostafaznv/nova-ckeditor
-
-
-```bash
-composer require mostafaznv/nova-ckeditor
-```
- 
 ### jolimardi/laravel-mysections
 
 

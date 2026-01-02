@@ -111,11 +111,8 @@ module.exports = {
             type: 'category',
             label: 'Features',
             items: [
-                'laravel/Features/nova-video-field',
                 'laravel/Features/web-php',
                 'laravel/Features/jquery',
-                'laravel/Features/nova',
-                // 'laravel/Features/nova-belongsToMany',
                 'laravel/Features/jm-menu',
                 'laravel/Features/jm-sections',
                 'laravel/Features/jm-flash',
@@ -126,9 +123,20 @@ module.exports = {
                 'laravel/Features/laravel-form-components',
                 'laravel/Features/dropzone',
                 'laravel/Features/create-form',
-                'laravel/Features/add-ckeditor',
                 'laravel/Features/pagination',
                 'laravel/Features/install-from-repo',
+            ],
+        },
+        {
+            type: 'category',
+            label: 'Archived (Nova)',
+            collapsed: true,
+            items: [
+                'laravel/Archived/nova',
+                'laravel/Archived/laravel-nova',
+                'laravel/Archived/nova-video-field',
+                'laravel/Archived/nova-belongsToMany',
+                'laravel/Archived/add-ckeditor',
             ],
         }
     ],

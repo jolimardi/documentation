@@ -102,7 +102,7 @@ Modifier `config/menu.yml` pour ajouter des routes au composant.
 
 ## Sections JoliMardi
 :::warning
-Il faut d'abord installer Nova
+@TODO : Mettre à jour avec Filament (remplace Nova)
 :::
 ```bash
 composer require ebess/advanced-nova-media-library:^4.2
@@ -173,13 +173,9 @@ Sinon, il faut ajouter le composant youtube-inline.blade.php dans `resources/vie
 
 </details>
 
-
-
-#### Ajout d'une nouvelle section via Nova
-
-**Prérequis : avoir installé Laravel Nova (voir plus loin)**
-
-Se connecter à Nova pour ajouter une section. La clé est importante pour afficher la section (c'est son *machine name*). Il est possible d'ajouter des types de section (via Nova), puis de créer le nouveau template dans `/resources/views/components/vendor/laravel-sections/ma-nouvelle-section.blade.php`
+:::info
+@TODO : Ajouter documentation sur l'ajout de sections avec Filament (remplace Nova)
+:::
 
 ## Metas JoliMardi
 
