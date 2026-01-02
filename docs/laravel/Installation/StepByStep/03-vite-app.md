@@ -14,6 +14,10 @@ npm install postcss-nesting --save-dev
 npm install autoprefixer --save-dev
 ```
 
+:::tip Pourquoi PostCSS Nesting ?
+Permet d'écrire du CSS avec syntaxe imbriquée (comme Sass) directement dans les fichiers `.css`. Autoprefixer ajoute automatiquement les préfixes navigateurs (`-webkit-`, `-moz-`, etc.).
+:::
+
 Puis configuration à la racine du projet, dans `vite.config.js` :
 
 ```js title="/vite.config.js"
@@ -48,7 +52,12 @@ export default defineConfig({
 
 Il faut ensuite charger ces fichiers compilés dans le Layout blade principal `/resources/views/layout.blade.php` grace à la directive spéciale `@vite`.
 
-Par exemple, pour les deux fichiers présents dans le `input` de `vite.config.js` ci-dessus, on peut les charger dans le `<head>` avec `@vite('resources/css/app.css')` et `@vite('resources/css/app.js')`. Ca remplace le `<style src=...></style>` pour permettre le live reload pendant le dev, le changement de nom à chaque nouveau build (évite d'avoir de vieux fichiers obsolètes en cache) etc.
+Par exemple, pour les deux fichiers présents dans le `input` de `vite.config.js` ci-dessus, on peut les charger dans le `<head>` avec `@vite('resources/css/app.css')` et `@vite('resources/css/app.js')`.
+
+:::info Dev vs Production
+**En dev (`npm run dev`)** : `@vite` charge les assets via le serveur Vite avec hot reload.
+**En prod (`npm run build`)** : `@vite` charge les assets compilés depuis `public/build/` avec hash dans le nom pour cache-busting.
+:::
 
 ```html title="/resources/views/layout.blade.php"
 <head>
@@ -203,3 +212,19 @@ function throttle(fn, threshhold, scope) {
     };
 }
 ```
+
+## Troubleshooting
+
+**Erreur : "Vite manifest not found"**
+- Solution : Lancer `npm run build` pour générer les assets de production, ou `npm run dev` en environnement local.
+- En production, vérifier que `public/build/manifest.json` existe après le build.
+
+**Hot reload ne fonctionne pas**
+- Vérifier que `npm run dev` est bien lancé
+- Vérifier le port Vite dans `vite.config.js` (par défaut 5173)
+- Si derrière un proxy : configurer `server.hmr` dans vite.config.js
+
+:::tip Documentation Vite
+https://vitejs.dev/guide/ - Guide complet Vite.js
+https://laravel.com/docs/vite - Documentation Laravel Vite
+:::
