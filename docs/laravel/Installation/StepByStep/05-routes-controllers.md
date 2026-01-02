@@ -223,3 +223,7 @@ Route::name('admin.login')->get($admin_prefix . '/login', 'AdminController@login
 Route::name('admin.check-login')->post($admin_prefix . '/check-login', 'AdminController@checkLogin');
 
 ```
+
+---
+
+**Étape suivante :** [6. jQuery & Plugins](./06-jquery-plugins)

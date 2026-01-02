@@ -255,3 +255,7 @@ Utiliser dans un controlleur `Flash::success('Ceci est un message de succès');`
 ```bash
 composer require barryvdh/laravel-debugbar --dev
 ```
+
+---
+
+**Étape suivante :** [3. Vite.js & app.js](./03-vite-app)

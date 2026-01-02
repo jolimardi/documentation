@@ -156,3 +156,7 @@ Il faut mettre l'ensemble du contenu des vues (html, js etc.) entre les balises 
     <h1>Hello World</h1>
 </x-layout>
 ```
+
+---
+
+**Étape suivante :** [5. Routes & Controllers](./05-routes-controllers)

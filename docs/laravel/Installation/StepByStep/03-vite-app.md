@@ -228,3 +228,7 @@ function throttle(fn, threshhold, scope) {
 https://vitejs.dev/guide/ - Guide complet Vite.js
 https://laravel.com/docs/vite - Documentation Laravel Vite
 :::
+
+---
+
+**Étape suivante :** [4. Layout Principal](./04-layout-principal)

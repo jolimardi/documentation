@@ -100,3 +100,7 @@ Pour les assets et le live reload, lancer Vite.js :
 ```bash
 npm run dev
 ```
+
+---
+
+**Étape suivante :** [2. Packages Composer](./02-packages-composer)
