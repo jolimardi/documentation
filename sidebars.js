@@ -128,6 +128,13 @@ module.exports = {
         },
         {
             type: 'category',
+            label: 'Guides',
+            items: [
+                'laravel/Guides/troubleshooting',
+            ],
+        },
+        {
+            type: 'category',
             label: '3. Déploiement Forge',
             items: [
                 'laravel/Deployment/intro',
