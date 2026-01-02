@@ -78,9 +78,9 @@ const config = {
                 items: [
                     {
                         type: 'docSidebar',
-                        sidebarId: 'tutorialSidebar',
+                        sidebarId: 'forgeSidebar',
                         position: 'left',
-                        label: 'Documentation CSS',
+                        label: 'Déploiement Forge',
                     },
                     {
                         type: 'docSidebar',
@@ -88,7 +88,12 @@ const config = {
                         position: 'left',
                         label: 'Documentation Laravel',
                     },
-                    { to: '/blog', label: 'Blog', position: 'left' },
+                    {
+                        type: 'docSidebar',
+                        sidebarId: 'tutorialSidebar',
+                        position: 'left',
+                        label: 'Joli Mardi CSS',
+                    },
                     {
                         href: 'https://github.com/facebook/docusaurus',
                         label: 'GitHub',

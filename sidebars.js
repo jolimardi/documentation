@@ -87,16 +87,8 @@ module.exports = {
     ],
     laravelSidebar: [
         {
-            type: 'doc',
-            id: 'laravel/intro',
-        },
-        {
-            type: 'doc',
-            id: 'laravel/Installation/package-laravel',
-        },
-        {
             type: 'category',
-            label: '1. Installation Step by Step',
+            label: 'Installation Step by Step',
             items: [
                 'laravel/Installation/StepByStep/laravel',
                 'laravel/Installation/StepByStep/packages-composer',
@@ -107,8 +99,12 @@ module.exports = {
             ],
         },
         {
+            type: 'doc',
+            id: 'laravel/Installation/package-laravel',
+        },
+        {
             type: 'category',
-            label: '2. Configuration Détaillée',
+            label: 'Configuration détaillée',
             items: [
                 'laravel/Features/web-php',
                 'laravel/Features/jquery',
@@ -135,14 +131,7 @@ module.exports = {
         },
         {
             type: 'category',
-            label: '3. Déploiement Forge',
-            items: [
-                'laravel/Deployment/intro',
-            ],
-        },
-        {
-            type: 'category',
-            label: 'Archived (Nova)',
+            label: 'Deprecated',
             collapsed: true,
             items: [
                 'laravel/Archived/nova',
@@ -152,5 +141,11 @@ module.exports = {
                 'laravel/Archived/add-ckeditor',
             ],
         }
+    ],
+    forgeSidebar: [
+        {
+            type: 'doc',
+            id: 'laravel/Deployment/intro',
+        },
     ],
 };
