@@ -7,7 +7,7 @@ const darkCodeTheme = themes.vsDark;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-    title: 'Documentation JoliMardi',
+    title: 'Documentation Joli Mardi',
     tagline: 'Un code fait pour vous',
     favicon: 'img/favicon.ico',
 
@@ -34,8 +34,8 @@ const config = {
     // metadata like html lang. For example, if your site is Chinese, you may want
     // to replace "en" with "zh-Hans".
     i18n: {
-        defaultLocale: 'en',
-        locales: ['en'],
+        defaultLocale: 'fr',
+        locales: ['fr'],
     },
 
     presets: [
@@ -48,7 +48,7 @@ const config = {
                     // Please change this to your repo.
                     // Remove this to remove the "edit this page" links.
                     editUrl:
-                        'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+                        'https://github.com/jolimardi/documentation',
                 },
                 blog: false/* {
           showReadingTime: true,
@@ -68,20 +68,14 @@ const config = {
         /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
             // Replace with your project's social card
-            image: 'img/docusaurus-social-card.jpg',
+            //image: 'img/docusaurus-social-card.jpg',
             navbar: {
-                title: 'Documentation JoliMardi',
+                title: 'Joli Mardi · Documentation',
                 logo: {
-                    alt: 'My Site Logo',
-                    src: 'img/logo.svg',
+                    alt: 'Joli Mardi',
+                    src: 'img/logo.png',
                 },
                 items: [
-                    {
-                        type: 'docSidebar',
-                        sidebarId: 'forgeSidebar',
-                        position: 'left',
-                        label: 'Déploiement Forge',
-                    },
                     {
                         type: 'docSidebar',
                         sidebarId: 'laravelSidebar',
@@ -90,14 +84,15 @@ const config = {
                     },
                     {
                         type: 'docSidebar',
+                        sidebarId: 'forgeSidebar',
+                        position: 'left',
+                        label: 'Déploiement Forge',
+                    },
+                    {
+                        type: 'docSidebar',
                         sidebarId: 'tutorialSidebar',
                         position: 'left',
                         label: 'Joli Mardi CSS',
-                    },
-                    {
-                        href: 'https://github.com/facebook/docusaurus',
-                        label: 'GitHub',
-                        position: 'right',
                     },
                 ],
             },
