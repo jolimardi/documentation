@@ -34,7 +34,7 @@ use Illuminate\Support\Facades\Route;
 ...
 ```
 
-Voir : [Routes & Controllers](../Installation/StepByStep/05-routes-controllers)
+Voir : [Routes & Controllers](../Installation/StepByStep/routes-controllers)
 
 ---
 
@@ -47,7 +47,7 @@ Voir : [Routes & Controllers](../Installation/StepByStep/05-routes-controllers)
 - **En prod** : Lancer `npm run build` pour compiler les assets
 - Vérifier que `public/build/manifest.json` existe après le build
 
-Voir : [Vite.js & app.js](../Installation/StepByStep/03-vite-app#troubleshooting)
+Voir : [Vite.js & app.js](../Installation/StepByStep/vite-app#troubleshooting)
 
 ---
 

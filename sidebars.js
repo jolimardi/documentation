@@ -98,12 +98,12 @@ module.exports = {
             type: 'category',
             label: '1. Installation Step by Step',
             items: [
-                'laravel/Installation/StepByStep/01-laravel',
-                'laravel/Installation/StepByStep/02-packages-composer',
-                'laravel/Installation/StepByStep/03-vite-app',
-                'laravel/Installation/StepByStep/04-layout-principal',
-                'laravel/Installation/StepByStep/05-routes-controllers',
-                'laravel/Installation/StepByStep/06-jquery-plugins',
+                'laravel/Installation/StepByStep/laravel',
+                'laravel/Installation/StepByStep/packages-composer',
+                'laravel/Installation/StepByStep/vite-app',
+                'laravel/Installation/StepByStep/layout-principal',
+                'laravel/Installation/StepByStep/routes-controllers',
+                'laravel/Installation/StepByStep/jquery-plugins',
             ],
         },
         {

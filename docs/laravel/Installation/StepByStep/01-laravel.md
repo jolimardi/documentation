@@ -103,4 +103,4 @@ npm run dev
 
 ---
 
-**Étape suivante :** [2. Packages Composer](./02-packages-composer)
+**Étape suivante :** [2. Packages Composer](./packages-composer)

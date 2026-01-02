@@ -226,4 +226,4 @@ Route::name('admin.check-login')->post($admin_prefix . '/check-login', 'AdminCon
 
 ---
 
-**Étape suivante :** [6. jQuery & Plugins](./06-jquery-plugins)
+**Étape suivante :** [6. jQuery & Plugins](./jquery-plugins)

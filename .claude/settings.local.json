@@ -5,7 +5,14 @@
       "WebFetch(domain:docusaurus.io)",
       "Bash(node --version:*)",
       "Bash(npm view:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(git mv:*)",
+      "Bash(git add:*)",
+      "Bash(export NVM_DIR=\"$HOME/.nvm\")",
+      "Bash([ -s \"$NVM_DIR/nvm.sh\" ])",
+      "Bash(. \"$NVM_DIR/nvm.sh\")",
+      "Bash(nvm use:*)",
+      "Bash(npm run clear:*)"
     ]
   }
 }

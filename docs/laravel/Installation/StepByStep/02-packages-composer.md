@@ -258,4 +258,4 @@ composer require barryvdh/laravel-debugbar --dev
 
 ---
 
-**Étape suivante :** [3. Vite.js & app.js](./03-vite-app)
+**Étape suivante :** [3. Vite.js & app.js](./vite-app)

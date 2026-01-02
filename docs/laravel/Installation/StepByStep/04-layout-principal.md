@@ -159,4 +159,4 @@ Il faut mettre l'ensemble du contenu des vues (html, js etc.) entre les balises 
 
 ---
 
-**Étape suivante :** [5. Routes & Controllers](./05-routes-controllers)
+**Étape suivante :** [5. Routes & Controllers](./routes-controllers)

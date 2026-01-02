@@ -231,4 +231,4 @@ https://laravel.com/docs/vite - Documentation Laravel Vite
 
 ---
 
-**Étape suivante :** [4. Layout Principal](./04-layout-principal)
+**Étape suivante :** [4. Layout Principal](./layout-principal)
