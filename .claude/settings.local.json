@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:docusaurus.io)",
+      "Bash(node --version:*)",
+      "Bash(npm view:*)",
+      "Bash(npm run build:*)"
+    ]
+  }
+}
